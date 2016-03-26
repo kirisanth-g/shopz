@@ -7,7 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 
-public class SearchResult extends Composite {
+public class SearchResult extends Composite implements View {
 	private Text txtSearchResults;
 
 	/**
@@ -28,6 +28,10 @@ public class SearchResult extends Composite {
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
+	}
+	
+	public void resetView(){
+		return;
 	}
 
 }

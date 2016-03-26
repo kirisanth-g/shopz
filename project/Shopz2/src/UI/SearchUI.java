@@ -11,7 +11,7 @@ import swing2swt.layout.FlowLayout;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class SearchUI extends Composite {
+public class SearchUI extends Composite implements View {
 	private Text text;
 
 	/**
@@ -43,6 +43,10 @@ public class SearchUI extends Composite {
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
+	}
+	
+	public void resetView(){
+		text.setText("Search Term");
 	}
 
 }
