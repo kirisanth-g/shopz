@@ -33,7 +33,7 @@ public class SearchUI extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				//please print out what I have typed in the bar
 				String srchTerm = text.getText();
-				System.out.println(srchTerm);
+				Tester.switchLayout(Tester.PageID.SEARCH_RES);
 			}
 		});
 		btnSearch.setText("Search");
