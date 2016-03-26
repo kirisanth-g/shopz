@@ -13,6 +13,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 
 public class LoginUI extends Composite implements View {
 	private Text textUsername;
@@ -36,7 +38,13 @@ public class LoginUI extends Composite implements View {
 		textUsername.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(this, SWT.NONE);
 		
-		txtPassword = new Text(this, SWT.BORDER);
+		txtPassword = new Text(this, SWT.PASSWORD |SWT.BORDER);
+		txtPassword.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtPassword.setText("");
+			}
+		});
 		//txtPassword.setText("Password");
 		txtPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
