@@ -33,7 +33,7 @@ public class SearchUI extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				//please print out what I have typed in the bar
 				String srchTerm = text.getText();
-				Tester.switchLayout(Tester.PageID.SEARCH_RES);
+				ViewController.switchView(ViewController.ViewID.SEARCH_RES);
 			}
 		});
 		btnSearch.setText("Search");
