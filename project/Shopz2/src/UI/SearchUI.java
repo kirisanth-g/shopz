@@ -37,6 +37,20 @@ public class SearchUI extends Composite implements View {
 			}
 		});
 		btnSearch.setText("Search");
+		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		
+		Button btnAccountInfo = new Button(this, SWT.NONE);
+		btnAccountInfo.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				ViewController.switchView(ViewController.ViewID.ACCOUNT_SETTINGS);
+			}
+		});
+		btnAccountInfo.setText("Account Info");
 
 	}
 

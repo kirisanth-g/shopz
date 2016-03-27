@@ -48,7 +48,6 @@ public class LoginUI extends Composite implements View {
 		//txtPassword.setText("Password");
 		txtPassword.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		resetView();
 		Button btnLogin = new Button(this, SWT.NONE);
 		btnLogin.addSelectionListener(new SelectionAdapter() {
 			@Override

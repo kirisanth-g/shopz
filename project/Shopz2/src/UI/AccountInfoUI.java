@@ -1,19 +1,31 @@
 package UI;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.FillLayout;
+
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class AccountInfoUI extends Composite implements View {
-	private Text text;
-	private Text text_1;
-	private Text text_2;
-	private Text text_3;
-	private Text text_4;
+	private Text bName;
+	private Text ccNum;
+	private Text expDate;
+	private Text ccvNum;
+	private Text cardType;
+	private Text sName;
+	private Text streetAddress;
+	private Text postalCode;
+	private Text city;
+	private Text country;
+	private Button btnSaveChanges;
+	private Button btnEdit;
+	
 
 	/**
 	 * Create the composite.
@@ -22,45 +34,164 @@ public class AccountInfoUI extends Composite implements View {
 	 */
 	public AccountInfoUI(Composite parent, int style) {
 		super(parent, style);
-		setLayout(new GridLayout(1, false));
+		setLayout(new GridLayout(2, false));
 		
 		Label lblAccountInfo = new Label(this, SWT.NONE);
 		lblAccountInfo.setText("Account info");
+		new Label(this, SWT.NONE);
 		
 		Label lblBillingInfo = new Label(this, SWT.NONE);
 		lblBillingInfo.setText("Billing Info:");
+		
+		Label lblShippingInfo = new Label(this, SWT.NONE);
+		lblShippingInfo.setText("Shipping Info:");
+		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 		
 		Label lblUsername = new Label(this, SWT.NONE);
 		lblUsername.setText("Name");
 		
-		text = new Text(this, SWT.BORDER);
-		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		Label lblName = new Label(this, SWT.NONE);
+		lblName.setText("Name");
+		
+		bName = new Text(this, SWT.BORDER);
+		bName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		sName = new Text(this, SWT.BORDER);
+		sName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblCreditCard = new Label(this, SWT.NONE);
 		lblCreditCard.setText("Credit Card #");
 		
-		text_1 = new Text(this, SWT.BORDER);
-		text_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		Label lblStreetAddress = new Label(this, SWT.NONE);
+		lblStreetAddress.setText("Street Address");
+		
+		ccNum = new Text(this, SWT.BORDER);
+		ccNum.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		streetAddress = new Text(this, SWT.BORDER);
+		streetAddress.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblExpDate = new Label(this, SWT.NONE);
 		lblExpDate.setText("Exp Date");
 		
-		text_2 = new Text(this, SWT.BORDER);
-		text_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		Label lblCity = new Label(this, SWT.NONE);
+		lblCity.setText("City");
+		
+		expDate = new Text(this, SWT.BORDER);
+		expDate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		city = new Text(this, SWT.BORDER);
+		city.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblCcv = new Label(this, SWT.NONE);
 		lblCcv.setText("CCV");
 		
-		text_3 = new Text(this, SWT.BORDER);
-		text_3.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		Label lblPostalCode = new Label(this, SWT.NONE);
+		lblPostalCode.setText("Postal Code");
+		
+		ccvNum = new Text(this, SWT.BORDER);
+		ccvNum.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		postalCode = new Text(this, SWT.BORDER);
+		postalCode.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblCardType = new Label(this, SWT.NONE);
 		lblCardType.setText("Card Type");
 		
-		text_4 = new Text(this, SWT.BORDER);
-		text_4.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		Label lblCountry = new Label(this, SWT.NONE);
+		lblCountry.setText("Country");
+		
+		cardType = new Text(this, SWT.BORDER);
+		cardType.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		country = new Text(this, SWT.BORDER);
+		country.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		btnEdit = new Button(this, SWT.NONE);
+		btnEdit.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				editMode();
+			}
+		});
+		btnEdit.setText("Edit");
+		
+		btnSaveChanges = new Button(this, SWT.NONE);
+		btnSaveChanges.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setValues();
+				viewMode();
+			}
 
+		});
+		btnSaveChanges.setText("Save Changes");	
+		
+		
+		//set initially to read mod
+		resetView();
+	}
+	
+	public void getValues(){
+		//this is where you should get query the db and get the data
+		bName.setText("Alice");
+		ccNum.setText("1234567890");
+		expDate.setText("01/17");
+		ccvNum.setText("987");
+		cardType.setText("Visa");
+		sName.setText("Alice");
+		streetAddress.setText("101 Military Trail");
+		postalCode.setText("L3C1J2");
+		city.setText("Toronto");
+		country.setText("Canada");
+	}
+	
+	public void setValues(){
+		bName.getText();
+		ccNum.getText();
+		expDate.getText();
+		ccvNum.getText();
+		cardType.getText();
+		sName.getText();
+		sName.getText();
+		streetAddress.getText();
+		postalCode.getText();
+		city.getText();
+		country.getText();
+		
+		System.out.println("Changes will be saved");
+	}
+	
+	public void editMode(){
+		btnSaveChanges.setEnabled(true);
+		btnEdit.setEnabled(false);
+		
+		bName.setEditable(true);
+		ccNum.setEditable(true);
+		expDate.setEditable(true);
+		ccvNum.setEditable(true);
+		cardType.setEditable(true);
+		sName.setEditable(true);
+		streetAddress.setEditable(true);
+		postalCode.setEditable(true);
+		city.setEditable(true);
+		country.setEditable(true);
+	}
+	public void viewMode(){
+		btnSaveChanges.setEnabled(false);
+		btnEdit.setEnabled(true);
+		
+		bName.setEditable(false);
+		ccNum.setEditable(false);
+		expDate.setEditable(false);
+		ccvNum.setEditable(false);
+		cardType.setEditable(false);
+		sName.setEditable(false);
+		streetAddress.setEditable(false);
+		postalCode.setEditable(false);
+		city.setEditable(false);
+		country.setEditable(false);
 	}
 
 	@Override
@@ -69,6 +200,8 @@ public class AccountInfoUI extends Composite implements View {
 	}
 public void resetView(){
 	//this is where you pull from the db and fill in all the info
+	getValues();
+	viewMode();
 }
 	
 }

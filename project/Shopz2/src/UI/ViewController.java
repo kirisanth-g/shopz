@@ -47,6 +47,7 @@ private static StackLayout layout;
     pages.put( ViewID.SEARCH , new SearchUI(contentPanel, SWT.NONE)); 
     pages.put( ViewID.SEARCH_RES, new SearchResult(contentPanel, SWT.NONE)); 
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
+    pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
     
   
 
@@ -77,18 +78,28 @@ private static StackLayout layout;
 	  if(prevpages.size() > 1){
 		  //remove the current from running stack
 		  prevpages.pop(); 
-		  //swith to the second one on the stack but keep it on the top
-		  View view = (View) pages.get(prevpages.peek());
-		  view.resetView();
-		  layout.topControl = (Composite) view;
-		  contentPanel.layout(); 
+		  load(prevpages.peek());
+		  //layout.topControl = pages.get(prevpages.peek());
+		  //contentPanel.layout(); 
 	  }
+  }
+  
+  private static void load(ViewID pid){
+	  View view = (View) pages.get(pid);
+	  view.resetView();
+	  layout.topControl = pages.get(pid);
+	  contentPanel.layout();
   }
   
   //maybe call this in the other methods
   public static void switchView(ViewID pid){
-	  layout.topControl = pages.get(pid);
-	  contentPanel.layout(); 
+	  //puts the new page to visit on top of the stack
 	  prevpages.push(pid); 
+	  //layout.topControl = pages.get(pid);
+	  load(pid);
+	 // contentPanel.layout(); 
+	  	  
   }
+  
+
 }
