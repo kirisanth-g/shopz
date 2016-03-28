@@ -16,6 +16,8 @@ import org.eclipse.swt.widgets.Shell;
  
 public class ViewController  {
 	
+	public static final int MAX_WIDTH = 800;
+	public static final int MAX_HEIGHT = 600;
 	//all the pageID's 
 	//just add to here for new pages, 
 	public static enum ViewID{
@@ -25,6 +27,8 @@ public class ViewController  {
 		SEARCH_RES,
 		SHOPPING_CART,
 	}
+	
+	
 
 
 private static Map<ViewID, Composite> pages = new HashMap<ViewID ,Composite>(); 
@@ -36,9 +40,10 @@ private static StackLayout layout;
   public static void init() {
     Display display = new Display();
     Shell shell = new Shell(display);
-    shell.setBounds(10, 10, 800, 600);
+    //gives us 10 px margins on the ends 
+    shell.setBounds(10, 10, MAX_WIDTH+120, MAX_HEIGHT+90);
     contentPanel = new Composite(shell, SWT.BORDER);
-    contentPanel.setBounds(100, 10, 800-10, 600-10);
+    contentPanel.setBounds(100, 10, MAX_WIDTH, MAX_HEIGHT);
     layout = new StackLayout();
     contentPanel.setLayout(layout);
 

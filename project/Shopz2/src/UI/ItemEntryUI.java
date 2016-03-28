@@ -14,6 +14,7 @@ public class ItemEntryUI extends Composite implements View {
 	private Label itemName, manufacturer, category, itemId, price;
 	private Text desc;
 	private Button btnAddToCart;
+	private Label label;
 
 	/**
 	 * Create the composite.
@@ -23,36 +24,45 @@ public class ItemEntryUI extends Composite implements View {
 	 */
 	public ItemEntryUI(Composite parent, int style) {
 		super(parent, style);
-		setLayout(new GridLayout(3, false));
+		setLayout(new GridLayout(4, false));
+		
+		label = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+		GridData gd_label = new GridData(SWT.LEFT, SWT.CENTER, false, false, 4, 1);
+		gd_label.widthHint = 658;
+		label.setLayoutData(gd_label);
 
 		itemId = new Label(this, SWT.NONE);
 
 		category = new Label(this, SWT.NONE);
-
-		btnAddToCart = new Button(this, SWT.NONE);
-		btnAddToCart.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnAddToCart.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// put add to cart function here
-			}
-		});
+				new Label(this, SWT.NONE);
+		
+				btnAddToCart = new Button(this, SWT.NONE);
+				btnAddToCart.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+				btnAddToCart.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						// put add to cart function here
+					}
+				});
 
 		itemName = new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
-
-		price = new Label(this, SWT.NONE);
-		price.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+				new Label(this, SWT.NONE);
+		
+				price = new Label(this, SWT.NONE);
+				price.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 
 		manufacturer = new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 
 		desc = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		GridData gd_text = new GridData(SWT.FILL, SWT.TOP, true, false, 3, 1);
-		gd_text.widthHint = 440;
+		gd_text.widthHint = 119;
 		gd_text.heightHint = 52;
 		desc.setLayoutData(gd_text);
+		new Label(this, SWT.NONE);
 
 		// sample call
 		resetView();
