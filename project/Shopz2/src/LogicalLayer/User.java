@@ -1,6 +1,8 @@
-package Backend;
+package LogicalLayer;
 
 import java.sql.SQLException;
+
+import Backend.DBConnector;
 
 public class User {
 	

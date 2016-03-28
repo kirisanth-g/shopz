@@ -39,7 +39,9 @@ public class SearchResultsUI extends Composite implements View{
 		
 		ArrayList<ItemEntryUI> itemList = new ArrayList<ItemEntryUI>();
 		for (int i = 0; i < 10 ; i++){
-			//adds it to a list so we can track the item
+			//adds it to a list so we can track the item 
+			
+			//becuase you are creating the entyies here, feed all the params via constructor
 			itemList.add(new ItemEntryUI(composite, SWT.NONE));
 		}
 		

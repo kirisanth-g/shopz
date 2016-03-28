@@ -2,6 +2,8 @@ package UI;
 
 import org.eclipse.swt.widgets.Composite;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
@@ -203,5 +205,6 @@ public void resetView(){
 	getValues();
 	viewMode();
 }
+
 	
 }

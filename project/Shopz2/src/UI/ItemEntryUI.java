@@ -15,6 +15,7 @@ public class ItemEntryUI extends Composite implements View {
 	private Text desc;
 	private Button btnAddToCart;
 	private Label label;
+	private Button btnViewReviews;
 
 	/**
 	 * Create the composite.
@@ -34,7 +35,9 @@ public class ItemEntryUI extends Composite implements View {
 		itemId = new Label(this, SWT.NONE);
 
 		category = new Label(this, SWT.NONE);
-				new Label(this, SWT.NONE);
+				
+				btnViewReviews = new Button(this, SWT.NONE);
+				btnViewReviews.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		
 				btnAddToCart = new Button(this, SWT.NONE);
 				btnAddToCart.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -84,6 +87,7 @@ public class ItemEntryUI extends Composite implements View {
 				+ " a little bit more to see what will happen on this text bar. I'm running out of"
 				+ " energy at this rate. all i neeed now is a little more text");
 		btnAddToCart.setText("Add to Cart");
+		btnViewReviews.setText("Show Reviews");
 	}
 
 }
