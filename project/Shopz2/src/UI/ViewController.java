@@ -45,7 +45,7 @@ private static StackLayout layout;
 
     //content panel holds the system level buttons (back button, app runs inside )
     pages.put( ViewID.SEARCH , new SearchUI(contentPanel, SWT.NONE)); 
-    pages.put( ViewID.SEARCH_RES, new SearchResult(contentPanel, SWT.NONE)); 
+    pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
     pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
     
