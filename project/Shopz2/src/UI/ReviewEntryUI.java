@@ -29,13 +29,8 @@ public class ReviewEntryUI extends Composite {
 		setLayout(new GridLayout(1, false));
 				
 				lblTitle = new Label(this, SWT.NONE);
-				lblTitle.setText("Title");
-				
 				lblStarsOut = new Label(this, SWT.NONE);
-				lblStarsOut.setText("__ stars out of 5");
-		
 				
-		
 				reviewBody = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 				GridData gd_text = new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1);
 				gd_text.widthHint = 119;
@@ -46,7 +41,6 @@ public class ReviewEntryUI extends Composite {
 				btneditAdmin.setEnabled(false);
 				
 				btnSaveChanges = new Button(this, SWT.NONE);
-				btnSaveChanges.setText("Save Changes");
 				btneditAdmin.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -70,14 +64,25 @@ public class ReviewEntryUI extends Composite {
 		btneditAdmin.setEnabled(false);
 		btnSaveChanges.setEnabled(true);
 	}
+	
+	//will automaitclaly make the desc editable if the user is an admin
+	//you can only edit the body descroption
+	public void viewMode(){
+		btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
+		reviewBody.setEditable(false);
+		btnSaveChanges.setEnabled(false);
+	}
 
 	public void resetView() {
-		btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
+		viewMode(); 
 		reviewBody.setText("This is supposed to be a really long line of text. Supports auto "
 				+ "wrapping and scrolling But i don't if this wokrs, I guess I have to type"
 				+ " a little bit more to see what will happen on this text bar. I'm running out of"
 				+ " energy at this rate. all i neeed now is a little more text");
 		btneditAdmin.setText("Edit Review");
+		lblTitle.setText("Title");
+		lblStarsOut.setText("__ stars out of 5");
+		btnSaveChanges.setText("Save Changes");
 	}
 
 }
