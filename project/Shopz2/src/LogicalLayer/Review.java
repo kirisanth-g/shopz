@@ -27,41 +27,24 @@ public class Review {
 		return reviewID;
 	}
 
-	public void setReviewID(String reviewID) {
-		this.reviewID = reviewID;
-	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 	public String getPublishDate() {
 		return publishDate;
-	}
-
-	public void setPublishDate(String publishDate) {
-		this.publishDate = publishDate;
 	}
 
 	public int getStars() {
 		return stars;
 	}
 
-	public void setStars(int stars) {
-		this.stars = stars;
-	}
-
 	public boolean isHelpful() {
 		return helpful;
 	}
 
-	public void setHelpful(boolean helpful) {
-		this.helpful = helpful;
-	}
 
 	public String getDescription() {
 		return description;
@@ -75,7 +58,4 @@ public class Review {
 		return itemID;
 	}
 
-	public void setItemID(String itemID) {
-		this.itemID = itemID;
-	}
 }
