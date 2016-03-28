@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**A wrapper for the JDBC so you can connect, disconnect, 
  * processing statements, etc.**/
@@ -14,7 +13,7 @@ import java.util.logging.Logger;
 public class DBConnector {
 	
 	Connection connection = null;
-	private String driverName = "com.mysql.jdbc.Driver";
+	private static final String driverName = "com.mysql.jdbc.Driver";
 	private String url;
 	private String user;
 	private String pw;
@@ -60,6 +59,8 @@ public class DBConnector {
 	public void close() throws SQLException{
 		if(this.isOpened()){
 			connection.close();
+			stmt.close();
+			result.close();
 		}
 	}
 	
@@ -67,5 +68,31 @@ public class DBConnector {
 		return result;
 	}
 	
+	//this is only for create/insert/update statements
+	public boolean DDLStatement(String query){
+		try {
+			this.stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
+	//this is for doing queries on database
+	public boolean sqlQuery(String query){
+		result = null;
+		try{
+			result = this.stmt.executeQuery(query);
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	//if you really need to do something with the connector
+	public Connection getConnection(){
+		return connection;
+	}
 }
