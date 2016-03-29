@@ -56,7 +56,7 @@ private static StackLayout layout;
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
     pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
     pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
-    
+    pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
   
 
     // create the button that will switch between the pages

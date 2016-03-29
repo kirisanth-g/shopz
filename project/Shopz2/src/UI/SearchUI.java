@@ -47,6 +47,7 @@ public class SearchUI extends Composite implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				//switch to the shopping cart view
+				ViewController.switchView(ViewController.ViewID.SHOPPING_CART);
 			}
 		});
 		new Label(this, SWT.NONE);
