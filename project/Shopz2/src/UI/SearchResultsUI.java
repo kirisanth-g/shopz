@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Text;
+import LogicalLayer.Login;
 
 
 
@@ -57,6 +58,7 @@ public class SearchResultsUI extends Composite implements View{
 	public  void resetView(){ 
 		lblTitle.setText("Search Results");
 		
+
 		ArrayList<ItemEntryUI> itemList = new ArrayList<ItemEntryUI>();
 		for (Control child : composite.getChildren()) {
 			child.dispose();

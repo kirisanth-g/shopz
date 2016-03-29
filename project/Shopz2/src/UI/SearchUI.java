@@ -3,6 +3,10 @@ package UI;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
+
+import LogicalLayer.Login;
+import UI.ViewController.ViewID;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
@@ -10,10 +14,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+
 public class SearchUI extends Composite implements View {
 	private Text text;
 	private Button btnSearch, btnShoppingCart, btnAccountInfo;
-	
+	private Button btnAddToShop;
 
 	/**
 	 * Create the composite.
@@ -53,6 +58,17 @@ public class SearchUI extends Composite implements View {
 		new Label(this, SWT.NONE);
 		
 		btnAccountInfo = new Button(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		
+		btnAddToShop = new Button(this, SWT.NONE);
+		btnAddToShop.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				//go into the edit shop view
+				ViewController.switchView(ViewID.ADMIN_ITEM_ADD);
+			}
+		});
+		
 		btnAccountInfo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -67,13 +83,20 @@ public class SearchUI extends Composite implements View {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-	
-	public void resetView(){
+
+	public void resetView() {
+
+		// enable the admin button
+
+		btnAddToShop.setEnabled(Login.getCurrentUser().isAdmin());
+
 		text.setText("Search Term");
 		btnShoppingCart.setText("Shopping Cart");
 		btnAccountInfo.setText("Account Info");
 		btnSearch.setText("Search");
-		
+
+		btnAddToShop.setText("Add to Shop");
+
 	}
 
 }

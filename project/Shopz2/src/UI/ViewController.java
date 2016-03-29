@@ -27,7 +27,7 @@ public class ViewController  {
 		SEARCH_RES,
 		SHOPPING_CART,
 		REVIEWS_LIST,
-		ADMIN_PANEL,
+		ADMIN_ITEM_ADD,
 	}
 	
 	
@@ -57,6 +57,7 @@ private static StackLayout layout;
     pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
     pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
     pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
+    pages.put( ViewID.ADMIN_ITEM_ADD, new AdminAddItemUI(contentPanel, SWT.NONE));
   
 
     // create the button that will switch between the pages
