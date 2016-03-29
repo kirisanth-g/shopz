@@ -41,10 +41,6 @@ public class ReviewListUI extends Composite implements View {
 	@Override
 	public void resetView() {
 		title.setText("Reviews for ______");
-		// you may need 2 containers
-
-		// or an arraylist of logical items mapped to their UI elemtns
-
 		// i should change this to a map of primary key: review entry object.
 		itemList = new ArrayList<ReviewEntryUI>();
 
@@ -53,17 +49,17 @@ public class ReviewListUI extends Composite implements View {
 		
 		// this should remove all the old children before rebuilding the new
 		// ones
-		//for (Control child : composite.getChildren()) {
-		//	child.dispose();
-		//	System.out.println("disposing child");
-		//}
+		for (Control child : composite.getChildren()) {
+			child.dispose();
+		}
 		for (int i = 0; i < 10; i++) {
 			ReviewEntryUI reviewEntry = new ReviewEntryUI(composite, SWT.NONE);
-			System.out.println("rebuilding Review NEtry ");
+		//	System.out.println("rebuilding Review NEtry ");
 			reviewEntry.resetView();
 			itemList.add(reviewEntry);
-		//	reviewEntry.layout();	
 		}
+		composite.layout();
+		//System.out.println(composite.getChildren());
 
 	}
 }

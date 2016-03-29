@@ -1,6 +1,7 @@
 package UI;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
 import java.lang.reflect.Array;
@@ -9,6 +10,9 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Text;
+
+
+
 import org.eclipse.swt.layout.FillLayout;
 
 public class SearchResultsUI extends Composite implements View{
@@ -54,11 +58,15 @@ public class SearchResultsUI extends Composite implements View{
 		lblNewLabel.setText("Search Results");
 		
 		ArrayList<ItemEntryUI> itemList = new ArrayList<ItemEntryUI>();
+		for (Control child : composite.getChildren()) {
+			child.dispose();
+		}
 		for (int i = 0; i < 10 ; i++){
 			ItemEntryUI searchItemPanel = new ItemEntryUI(composite, SWT.NONE);
 			searchItemPanel.resetView();
 			itemList.add(searchItemPanel);
 		}
+		composite.layout();
 		
 		//this is where you might need to refernce Search.java for the last search term.
 		//since you can't transfer data to and from 
