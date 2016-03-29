@@ -12,6 +12,8 @@ import org.eclipse.swt.events.SelectionEvent;
 
 public class SearchUI extends Composite implements View {
 	private Text text;
+	private Button btnSearch, btnShoppingCart, btnAccountInfo;
+	
 
 	/**
 	 * Create the composite.
@@ -26,31 +28,38 @@ public class SearchUI extends Composite implements View {
 		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(this, SWT.NONE);
 		
-		Button btnSearch = new Button(this, SWT.NONE);
+		btnSearch = new Button(this, SWT.NONE);
 		btnSearch.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//please print out what I have typed in the bar
 				String srchTerm = text.getText();
+				//call LLayer.search query to preload into
 				ViewController.switchView(ViewController.ViewID.SEARCH_RES);
 			}
 		});
-		btnSearch.setText("Search");
-		new Label(this, SWT.NONE);
-		new Label(this, SWT.NONE);
-		new Label(this, SWT.NONE);
-		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 		
-		Button btnAccountInfo = new Button(this, SWT.NONE);
+
+		
+		btnShoppingCart = new Button(this, SWT.NONE);
+		btnShoppingCart.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				//switch to the shopping cart view
+			}
+		});
+		new Label(this, SWT.NONE);
+		
+		btnAccountInfo = new Button(this, SWT.NONE);
 		btnAccountInfo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ViewController.switchView(ViewController.ViewID.ACCOUNT_SETTINGS);
 			}
 		});
-		btnAccountInfo.setText("Account Info");
-
+		
+		resetView();
 	}
 
 	@Override
@@ -60,6 +69,10 @@ public class SearchUI extends Composite implements View {
 	
 	public void resetView(){
 		text.setText("Search Term");
+		btnShoppingCart.setText("Shopping Cart");
+		btnAccountInfo.setText("Account Info");
+		btnSearch.setText("Search");
+		
 	}
 
 }

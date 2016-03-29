@@ -31,9 +31,6 @@ public class User {
 	//DB connector
 	private DBConnector con;
 	
-	public boolean isAdmin(){
-		return true; 
-	}
 	
 	public User(String username){
 		

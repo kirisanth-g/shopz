@@ -60,7 +60,7 @@ public class LoginUI extends Composite implements View {
 			}
 		});
 		btnLogin.setText("Login");
-
+	//	resetView();
 	}
 
 	@Override
