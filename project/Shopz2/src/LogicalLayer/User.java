@@ -2,7 +2,8 @@ package LogicalLayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Backend.DBConnector;
 
@@ -26,7 +27,7 @@ public class User {
 	private String cardType;
 	
 	//ShoppingCart
-	private ArrayList<Item> cart;
+	private Map<Item, Integer> cart = new HashMap<Item, Integer>();
 	
 	//DB connector
 	private DBConnector con;
@@ -93,22 +94,94 @@ public class User {
 		try {
 			result = con.getResult();
 			while(result.next()){
-				cart.add(new Item(result.getString("itemID"), result.getString("name"), result.getString("manufacturer"),
-						result.getString("description"), result.getString("category"), result.getFloat("price")));
+				cart.put(new Item(result.getString("itemID"), result.getString("name"), result.getString("manufacturer"),
+						result.getString("description"), result.getString("category"), result.getFloat("price")),
+						result.getInt("Quantity"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void store(){
+		//Store User info,
+		con.DDLStatement(String.format("UPDATE User SET name=%s WHERE user=%s", 
+				this.name, this.username));
+		
+		//Store Address Info
+		con.DDLStatement(String.format("UPDATE Address SET name='%s', "
+				+ "address='%s', city='%s', postal='%s',"
+				+ "country='%s' WHERE user=%s", 
+				this.name, this.address, this.city, this.postal, this.country, 
+				this.username));
+		
+		//Store Payment
+		con.DDLStatement(String.format("UPDATE PaymentInfo SET name=%s, cardNumber=%d,"
+				+ " expDate='%s', ccv=%d, cardType='%s' WHERE user=%s", 
+				this.name, this.cardnum, this.expDate, this.ccv, this.cardType, 
+				this.username));
+		
+		//Store Cart items and quantity
+		for(Item key: cart.keySet()) {
+			
+			//need to check for new items added; check if exists
+			con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM ShoppingCart WHERE Item=%s)", key.getItemID()));
+			try {
+				if(con.getResult().isBeforeFirst()){
+					//if its already in db, update
+					con.DDLStatement(String.format("UPDATE ShoppingCart SET Quantity=%d WHERE Item=%s", 
+							cart.get(key), key.getItemID()));
+				}
+				
+				else{
+					//add if not, add
+					con.DDLStatement(String.format("INSERT INTO ShoppingCart VALUES (%s, %s, %d)", 
+							this.username, key.getItemID(), cart.get(key)));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	//should add to cached cart or update the quantity of it
+	public void addToCart(Item item, int quantity){
+		for(Item key: cart.keySet()){
+			if(key.getItemID() == item.getItemID()){
+				cart.put(key, cart.get(key)+quantity);
+				return;
+			}
+			
+		}
+		//if it reaches here than that means the item was not in the
+		//cached list
+		cart.put(item, quantity);
+	}
+	
+	/*remove a certain amount of that item and will check if difference more
+	 * than quantity in cart. If it is, remove that item completely from cart*/
+	public void removeFromCart(String itemID, int quantity){
+		
+		for(Item key: cart.keySet()){
+			if(key.getItemID() == itemID){
+				if(cart.get(key)-quantity <= 1){
+					cart.remove(key);
+				}
+				else{
+					cart.put(key, cart.get(key)-quantity);
+				}
+				break;
+			}
+		}
+		
 	}
 	
 	public String getUsername() {
 		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 
@@ -125,12 +198,6 @@ public class User {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
-
-
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
 
 	public String getAddress() {
 		return address;
@@ -212,23 +279,51 @@ public class User {
 	}
 
 
-	public ArrayList<Item> getCart() {
+	public Map<Item, Integer> getCart() {
 		return cart;
 	}
 
 
-	public void setCart(ArrayList<Item> cart) {
+	public void setCart(Map<Item, Integer> cart) {
 		this.cart = cart;
 	}
 
-
-	public DBConnector getCon() {
-		return con;
+	
+	public void logout(){
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-
-	public void setCon(DBConnector con) {
-		this.con = con;
+	
+	/*FOR ADMINS ONLY: this will overwrite the info of the item associated to that ID so its like an add/edit
+	  for Item table*/
+	public boolean addItem(String id, String name, String manu, String desc, 
+			String categ, float price){
+		//check if exists with same ID
+		con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM Item WHERE itemID=%s)", id));
+		try {
+			if(con.getResult().isBeforeFirst()){
+				//overwrite info
+				return con.DDLStatement(String.format("UPDATE Item SET name=%s, manufacturer=%s, "
+						+ "description=%s, category=%s, price=%.2f WHERE itemID=%s", 
+						name, manu, desc, categ, price, id));
+			}
+			else{
+				return con.DDLStatement(String.format("INSERT INTO Item VALUES (%s, %s, %s, %s, %s, %.2f)", 
+						id, name, manu, desc, categ, price));
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//FOR ADMINS ONLY: delete item from Item table
+	public boolean removeItem(String itemID){
+		return con.DDLStatement(String.format("DELETE FROM Item WHERE itemID=%s", itemID));
 	}
 
 }
