@@ -102,9 +102,133 @@ public class User {
 		}
 	}
 	
-	public static void main(String[] args){
-		DBConnector con = new DBConnector("localhost", "3306", "root", "admin", "Shopz");
-		
-		con.DDLStatement("INSERT INTO User VALUES ('user2', 'bear', 'boo', 0)");
+	public String getUsername() {
+		return username;
 	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public String getPostal() {
+		return postal;
+	}
+
+
+	public void setPostal(String postal) {
+		this.postal = postal;
+	}
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
+	public int getCardnum() {
+		return cardnum;
+	}
+
+
+	public void setCardnum(int cardnum) {
+		this.cardnum = cardnum;
+	}
+
+
+	public String getExpDate() {
+		return expDate;
+	}
+
+
+	public void setExpDate(String expDate) {
+		this.expDate = expDate;
+	}
+
+
+	public int getCcv() {
+		return ccv;
+	}
+
+
+	public void setCcv(int ccv) {
+		this.ccv = ccv;
+	}
+
+
+	public String getCardType() {
+		return cardType;
+	}
+
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
+
+
+	public ArrayList<Item> getCart() {
+		return cart;
+	}
+
+
+	public void setCart(ArrayList<Item> cart) {
+		this.cart = cart;
+	}
+
+
+	public DBConnector getCon() {
+		return con;
+	}
+
+
+	public void setCon(DBConnector con) {
+		this.con = con;
+	}
+
 }
