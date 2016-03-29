@@ -45,7 +45,7 @@ public class User {
 		
 		ResultSet result;
 		//get and store info from User
-		con.sqlQuery(String.format("SELECT * FROM User WHERE username=%s", this.username));
+		con.sqlQuery(String.format("SELECT * FROM User WHERE username='%s'", this.username));
 		try {
 			result = con.getResult();
 			result.next();
@@ -57,7 +57,7 @@ public class User {
 		}
 		
 		//get and store info from Address
-		con.sqlQuery(String.format("SELECT * FROM Address WHERE user=%s", this.username));
+		con.sqlQuery(String.format("SELECT * FROM Address WHERE user='%s'", this.username));
 		try {
 			result = con.getResult();
 			result.next();
@@ -72,7 +72,7 @@ public class User {
 		}		
 		
 		//get and store info from payment
-		con.sqlQuery(String.format("SELECT * FROM PaymentInfo WHERE username=%s", this.username));
+		con.sqlQuery(String.format("SELECT * FROM PaymentInfo WHERE username='%s'", this.username));
 		try {
 			result = con.getResult();
 			result.next();
@@ -89,7 +89,7 @@ public class User {
 		
 		//get and store info from ShoppingCart
 		con.sqlQuery(String.format("SELECT * FROM (Item INNER JOIN "
-				+ "(SELECT * FROM ShoppingCart WHERE Username=%s)) ON "
+				+ "(SELECT * FROM ShoppingCart WHERE Username='%s')) ON "
 				+ "(ShoppingCart.item=Item.itemID)", this.username));
 		try {
 			result = con.getResult();
@@ -107,19 +107,19 @@ public class User {
 	
 	public void store(){
 		//Store User info,
-		con.DDLStatement(String.format("UPDATE User SET name=%s WHERE user=%s", 
+		con.DDLStatement(String.format("UPDATE User SET name='%s' WHERE user='%s'", 
 				this.name, this.username));
 		
 		//Store Address Info
 		con.DDLStatement(String.format("UPDATE Address SET name='%s', "
 				+ "address='%s', city='%s', postal='%s',"
-				+ "country='%s' WHERE user=%s", 
+				+ "country='%s' WHERE user='%s'", 
 				this.name, this.address, this.city, this.postal, this.country, 
 				this.username));
 		
 		//Store Payment
-		con.DDLStatement(String.format("UPDATE PaymentInfo SET name=%s, cardNumber=%d,"
-				+ " expDate='%s', ccv=%d, cardType='%s' WHERE user=%s", 
+		con.DDLStatement(String.format("UPDATE PaymentInfo SET name='%s', cardNumber=%d,"
+				+ " expDate='%s', ccv=%d, cardType='%s' WHERE user='%s'", 
 				this.name, this.cardnum, this.expDate, this.ccv, this.cardType, 
 				this.username));
 		
@@ -127,11 +127,11 @@ public class User {
 		for(Item key: cart.keySet()) {
 			
 			//need to check for new items added; check if exists
-			con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM ShoppingCart WHERE Item=%s)", key.getItemID()));
+			con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM ShoppingCart WHERE Item='%s')", key.getItemID()));
 			try {
 				if(con.getResult().isBeforeFirst()){
 					//if its already in db, update
-					con.DDLStatement(String.format("UPDATE ShoppingCart SET Quantity=%d WHERE Item=%s", 
+					con.DDLStatement(String.format("UPDATE ShoppingCart SET Quantity=%d WHERE Item='%s'", 
 							cart.get(key), key.getItemID()));
 				}
 				
@@ -303,16 +303,16 @@ public class User {
 	public boolean addItem(String id, String name, String manu, String desc, 
 			String categ, float price){
 		//check if exists with same ID
-		con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM Item WHERE itemID=%s)", id));
+		con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM Item WHERE itemID='%s')", id));
 		try {
 			if(con.getResult().isBeforeFirst()){
 				//overwrite info
-				return con.DDLStatement(String.format("UPDATE Item SET name=%s, manufacturer=%s, "
-						+ "description=%s, category=%s, price=%.2f WHERE itemID=%s", 
+				return con.DDLStatement(String.format("UPDATE Item SET name='%s', manufacturer='%s', "
+						+ "description='%s', category='%s', price=%.2f WHERE itemID='%s'", 
 						name, manu, desc, categ, price, id));
 			}
 			else{
-				return con.DDLStatement(String.format("INSERT INTO Item VALUES (%s, %s, %s, %s, %s, %.2f)", 
+				return con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', '%s', %.2f)", 
 						id, name, manu, desc, categ, price));
 			}
 		} catch(SQLException e){
@@ -323,7 +323,7 @@ public class User {
 	
 	//FOR ADMINS ONLY: delete item from Item table
 	public boolean removeItem(String itemID){
-		return con.DDLStatement(String.format("DELETE FROM Item WHERE itemID=%s", itemID));
+		return con.DDLStatement(String.format("DELETE FROM Item WHERE itemID='%s'", itemID));
 	}
 
 }
