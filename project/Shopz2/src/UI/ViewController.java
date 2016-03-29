@@ -26,6 +26,7 @@ public class ViewController  {
 		SEARCH,
 		SEARCH_RES,
 		SHOPPING_CART,
+		REVIEWS_LIST,
 	}
 	
 	
@@ -53,6 +54,7 @@ private static StackLayout layout;
     pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
     pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
+    pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
     
   
 

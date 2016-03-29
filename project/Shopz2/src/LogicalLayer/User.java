@@ -34,12 +34,15 @@ public class User {
 	//DB connector
 	private DBConnector con;
 	
+	public boolean isAdmin(){
+		return true; 
+	}
 	
 	public User(String username){
 		
 		this.username = username;
 		//this needs to change
-		con = new DBConnector("localhost", "3306", "root", "admin", "Shopz");
+		con = new DBConnector("localhost", "3306", "root", "", "Shopz");
 	}
 	
 	

@@ -4,6 +4,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
+
+import UI.ViewController.ViewID;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -23,7 +26,7 @@ public class ItemEntryUI extends Composite implements View {
 	 * @param parent
 	 * @param style
 	 */
-	public ItemEntryUI(Composite parent, int style) {
+	public ItemEntryUI(Composite parent, int style)  {
 		super(parent, style);
 		setLayout(new GridLayout(4, false));
 		
@@ -37,6 +40,12 @@ public class ItemEntryUI extends Composite implements View {
 		category = new Label(this, SWT.NONE);
 				
 				btnViewReviews = new Button(this, SWT.NONE);
+				btnViewReviews.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						ViewController.switchView(ViewID.REVIEWS_LIST);
+					}
+				});
 				btnViewReviews.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		
 				btnAddToCart = new Button(this, SWT.NONE);
