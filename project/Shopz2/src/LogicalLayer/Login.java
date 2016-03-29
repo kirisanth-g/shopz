@@ -1,7 +1,7 @@
 package LogicalLayer;
 
 public class Login {
-	private static  User currentlyLoggedin = null; 
+	private static  User currentlyLoggedin = new User("username"); 
 	public static User getCurrentUser(){
 		return currentlyLoggedin; 
 	}

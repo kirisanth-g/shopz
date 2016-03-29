@@ -26,13 +26,15 @@ public class ViewController  {
 		SEARCH,
 		SEARCH_RES,
 		SHOPPING_CART,
+		REVIEWS_LIST,
+		ADMIN_PANEL,
 	}
 	
 	
 
 
 private static Map<ViewID, Composite> pages = new HashMap<ViewID ,Composite>(); 
-private static Stack<ViewID> prevpages = new Stack<ViewID>(); 
+private static Stack<ViewID> viewStack = new Stack<ViewID>(); 
 private static Composite contentPanel;
 private static StackLayout layout;
 
@@ -53,7 +55,8 @@ private static StackLayout layout;
     pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
     pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
-    
+    pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
+    pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
   
 
     // create the button that will switch between the pages
@@ -80,29 +83,27 @@ private static StackLayout layout;
   
   public static void prevView(){
 	  //make sure you can go back
-	  if(prevpages.size() > 1){
+	  if(viewStack.size() > 1){
 		  //remove the current from running stack
-		  prevpages.pop(); 
-		  load(prevpages.peek());
-		  //layout.topControl = pages.get(prevpages.peek());
-		  //contentPanel.layout(); 
+		  viewStack.pop(); 
+		  load(viewStack.peek());
+
 	  }
   }
   
   private static void load(ViewID pid){
 	  View view = (View) pages.get(pid);
 	  view.resetView();
-	  layout.topControl = pages.get(pid);
+	  layout.topControl = (Composite) view;
 	  contentPanel.layout();
   }
   
   //maybe call this in the other methods
   public static void switchView(ViewID pid){
 	  //puts the new page to visit on top of the stack
-	  prevpages.push(pid); 
-	  //layout.topControl = pages.get(pid);
+	  viewStack.push(pid); 
 	  load(pid);
-	 // contentPanel.layout(); 
+
 	  	  
   }
   

@@ -37,7 +37,7 @@ public class User {
 		
 		this.username = username;
 		//this needs to change
-		con = new DBConnector("localhost", "3306", "root", "admin", "Shopz");
+		con = new DBConnector("localhost", "3306", "root", "", "Shopz");
 	}
 	
 	
