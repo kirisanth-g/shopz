@@ -19,6 +19,7 @@ public class ItemEntryUI extends Composite implements View {
 	private Button btnAddToCart;
 	private Label label;
 	private Button btnViewReviews;
+	private Button btnAddReview;
 
 	/**
 	 * Create the composite.
@@ -28,16 +29,17 @@ public class ItemEntryUI extends Composite implements View {
 	 */
 	public ItemEntryUI(Composite parent, int style)  {
 		super(parent, style);
-		setLayout(new GridLayout(4, false));
+		setLayout(new GridLayout(6, false));
 		
 		label = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
-		GridData gd_label = new GridData(SWT.LEFT, SWT.CENTER, false, false, 4, 1);
+		GridData gd_label = new GridData(SWT.LEFT, SWT.CENTER, false, false, 6, 1);
 		gd_label.widthHint = 658;
 		label.setLayoutData(gd_label);
 
 		itemId = new Label(this, SWT.NONE);
 
 		category = new Label(this, SWT.NONE);
+				new Label(this, SWT.NONE);
 				
 				btnViewReviews = new Button(this, SWT.NONE);
 				btnViewReviews.addSelectionListener(new SelectionAdapter() {
@@ -47,6 +49,16 @@ public class ItemEntryUI extends Composite implements View {
 					}
 				});
 				btnViewReviews.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+				
+				btnAddReview = new Button(this, SWT.NONE);
+				btnAddReview.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						ViewController.switchView(ViewController.ViewID.ADD_REVIEW);
+						
+					}
+				});
+			
 		
 				btnAddToCart = new Button(this, SWT.NONE);
 				btnAddToCart.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -60,6 +72,8 @@ public class ItemEntryUI extends Composite implements View {
 		itemName = new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 				new Label(this, SWT.NONE);
+				new Label(this, SWT.NONE);
+				new Label(this, SWT.NONE);
 		
 				price = new Label(this, SWT.NONE);
 				price.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -68,12 +82,15 @@ public class ItemEntryUI extends Composite implements View {
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
+		new Label(this, SWT.NONE);
 
 		desc = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
-		GridData gd_text = new GridData(SWT.FILL, SWT.TOP, true, false, 3, 1);
+		GridData gd_text = new GridData(SWT.FILL, SWT.TOP, true, false, 4, 1);
 		gd_text.widthHint = 119;
 		gd_text.heightHint = 52;
 		desc.setLayoutData(gd_text);
+		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 
 		// sample call
@@ -97,6 +114,7 @@ public class ItemEntryUI extends Composite implements View {
 				+ " energy at this rate. all i neeed now is a little more text");
 		btnAddToCart.setText("Add to Cart");
 		btnViewReviews.setText("Show Reviews");
+		btnAddReview.setText("Add Review");
 	}
 
 }

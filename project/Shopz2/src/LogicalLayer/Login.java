@@ -18,13 +18,15 @@ public class Login {
 		//query the db for users, pass and do string comparison
 		//also set the currentlyLogged in User for quick address
 		ResultSet result;
-		con.sqlQuery(String.format("SELECT * FROM User WHERE username=%s", username));
+		System.out.println(String.format("SELECT * FROM User WHERE username LIKE '%s';", username));
+		con.sqlQuery(String.format("SELECT * FROM User WHERE username='%s'", username));
 		try {
 			result = con.getResult();
 			if(!result.next()){
 				return false;
 			}else if(password.equals(result.getString("password"))){
 				currentlyLoggedin = new User(username);
+				return true;
 			}else{
 				return false;
 			}

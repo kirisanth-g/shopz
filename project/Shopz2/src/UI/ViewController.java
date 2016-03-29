@@ -28,16 +28,24 @@ public class ViewController  {
 		SHOPPING_CART,
 		REVIEWS_LIST,
 		ADMIN_ITEM_ADD,
+		ADD_REVIEW,
 	}
 	
-	
-
-
 private static Map<ViewID, Composite> pages = new HashMap<ViewID ,Composite>(); 
 private static Stack<ViewID> viewStack = new Stack<ViewID>(); 
 private static Composite contentPanel;
 private static StackLayout layout;
-
+	public static void loadContent(){
+		pages.put( ViewID.SEARCH , new SearchUI(contentPanel, SWT.NONE)); 
+	    pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
+	    pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
+	    pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
+	    pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
+	    pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
+	    pages.put( ViewID.ADMIN_ITEM_ADD, new AdminAddItemUI(contentPanel, SWT.NONE));
+	    pages.put( ViewID.ADD_REVIEW, new AddReviewUI(contentPanel, SWT.NONE));
+	  
+	}
 
   public static void init() {
     Display display = new Display();
@@ -51,13 +59,13 @@ private static StackLayout layout;
 
 
     //content panel holds the system level buttons (back button, app runs inside )
-    pages.put( ViewID.SEARCH , new SearchUI(contentPanel, SWT.NONE)); 
-    pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
+   // pages.put( ViewID.SEARCH , new SearchUI(contentPanel, SWT.NONE)); 
+    //pages.put( ViewID.SEARCH_RES, new SearchResultsUI(contentPanel, SWT.NONE)); 
     pages.put( ViewID.LOGIN, new LoginUI(contentPanel,SWT.NONE)); 
-    pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
-    pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
-    pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
-    pages.put( ViewID.ADMIN_ITEM_ADD, new AdminAddItemUI(contentPanel, SWT.NONE));
+   // pages.put( ViewID.ACCOUNT_SETTINGS, new AccountInfoUI(contentPanel, SWT.NONE));
+   // pages.put( ViewID.REVIEWS_LIST, new ReviewListUI(contentPanel, SWT.NONE));
+   // pages.put( ViewID.SHOPPING_CART, new ShopingCartUI(contentPanel,SWT.NONE));
+   // pages.put( ViewID.ADMIN_ITEM_ADD, new AdminAddItemUI(contentPanel, SWT.NONE));
   
 
     // create the button that will switch between the pages

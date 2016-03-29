@@ -55,6 +55,7 @@ public class LoginUI extends Composite implements View {
 				//when the login button is presse
 				if (Login.authenticate(textUsername.getText(),txtPassword.getText())){
 				//if(true){
+					ViewController.loadContent();
 					ViewController.switchView(ViewController.ViewID.SEARCH);
 				}
 			}
