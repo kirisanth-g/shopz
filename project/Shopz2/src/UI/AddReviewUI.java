@@ -67,7 +67,7 @@ public class AddReviewUI extends Composite implements View {
 		});
 
 		new Label(this, SWT.NONE);
-	//	resetView();
+		resetView();
 
 	}
 

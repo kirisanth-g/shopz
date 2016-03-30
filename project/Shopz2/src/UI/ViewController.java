@@ -94,7 +94,7 @@ private static StackLayout layout;
 	  //make sure you can go back
 	  if(viewStack.size() > 1){
 		  //remove the current from running stack
-		  viewStack.pop(); 
+		  load(viewStack.pop()); 
 		  load(viewStack.peek());
 
 	  }
@@ -102,9 +102,11 @@ private static StackLayout layout;
   
   private static void load(ViewID pid){
 	  View view = (View) pages.get(pid);
-	  view.resetView();
+	 
 	  layout.topControl = (Composite) view;
+	  view.resetView();
 	  contentPanel.layout();
+	
   }
   
   //maybe call this in the other methods
