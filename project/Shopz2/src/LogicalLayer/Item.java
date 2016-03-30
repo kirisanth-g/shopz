@@ -50,6 +50,24 @@ public class Item {
 		return reviews;
 	}
 	
+	public void writeReview(String title, String pubDate, int stars,
+			String desc){
+		con = DBConnector.startup();
+		con.sqlQuery("SELECT count(*) FROM Review");
+		try {
+			ResultSet result = con.getResult();
+			result.next();
+			String reviewID = String.valueOf(result.getInt("count(*)"));
+			reviews.add(new Review(reviewID, title, pubDate, stars, desc, this.itemID));
+			con.DDLStatement(String.format("INSERT INTO Review VALUES ('%s', '%s', '%s', %d, '%s', '%s')", 
+					reviewID, title, pubDate, stars, desc, this.itemID));
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String getItemID() {
 		return itemID;
 	}
