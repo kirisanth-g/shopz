@@ -6,11 +6,15 @@ import org.eclipse.swt.widgets.Label;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Text;
+
+import LogicalLayer.Item;
 import LogicalLayer.Login;
+import LogicalLayer.Search; 
 
 
 
@@ -58,7 +62,15 @@ public class SearchResultsUI extends Composite implements View{
 	public  void resetView(){ 
 		lblTitle.setText("Search Results");
 		
-
+		//get the data from search
+		 List<Item> results = Search.getResults();
+		 
+		 for (Item item : results){ 
+			 System.out.println(item.getName());
+		 }
+		
+		
+		 //have it so that you insert the Item in to build the ui... makes a lot more sense,and it makes update eaiser
 		ArrayList<ItemEntryUI> itemList = new ArrayList<ItemEntryUI>();
 		for (Control child : composite.getChildren()) {
 			child.dispose();

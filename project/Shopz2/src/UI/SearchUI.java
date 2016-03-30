@@ -5,6 +5,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
 
 import LogicalLayer.Login;
+import LogicalLayer.Search;
 import UI.ViewController.ViewID;
 
 import org.eclipse.swt.SWT;
@@ -38,7 +39,7 @@ public class SearchUI extends Composite implements View {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//please print out what I have typed in the bar
-				String srchTerm = text.getText();
+				Search.search(text.getText());
 				//call LLayer.search query to preload into
 				ViewController.switchView(ViewController.ViewID.SEARCH_RES);
 			}
