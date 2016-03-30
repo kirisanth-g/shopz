@@ -7,17 +7,19 @@ import Backend.DBConnector;
 
 public class Login {
 	private static  User currentlyLoggedin; 
+	
 	public static User getCurrentUser(){
 		return currentlyLoggedin; 
 	}
-	//DB connector
-	private static DBConnector con = DBConnector.startup();
+	
+	private static DBConnector con;
 	
 	public static boolean authenticate(String username, String password){
 		//if you want to hash, this is where to do it
 		//query the db for users, pass and do string comparison
 		//also set the currentlyLogged in User for quick address
 		ResultSet result;
+		con = DBConnector.startup();
 		con.sqlQuery(String.format("SELECT * FROM User WHERE username='%s'", username));
 		try {
 			result = con.getResult();
