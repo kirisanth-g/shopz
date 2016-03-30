@@ -11,7 +11,7 @@ public class Login {
 		return currentlyLoggedin; 
 	}
 	//DB connector
-	private static DBConnector con = DBConnector.con();
+	private static DBConnector con = DBConnector.startup();
 	
 	public static boolean authenticate(String username, String password){
 		//if you want to hash, this is where to do it

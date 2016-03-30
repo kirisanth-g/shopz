@@ -19,10 +19,13 @@ public class DBConnector {
 	private String pw;
 	private Statement stmt; 
 	private ResultSet result;
-	private static DBConnector con;
+	private static String f_server;
+	private static String f_port;
+	private static String f_user;
+	private static String f_pw;
+	private static String f_db;
 	
 	public DBConnector(String server, String port, String user, String pw, String db){
-		DBConnector.con = this;
 		this.pw = pw;
 		this.user = user;
 		this.url = "jdbc:mysql://" + server + ":" + port +
@@ -98,7 +101,15 @@ public class DBConnector {
 		return connection;
 	}
 	
-	public static DBConnector con(){
-		return con;
+	public static DBConnector startup(){
+		return new DBConnector(f_server, f_port, f_user, f_pw, f_db);
+	}
+	
+	public static void setup(String server, String port, String user, String pw, String db){
+		f_server = server;
+		f_port = port;
+		f_user = user;
+		f_pw = pw;
+		f_db = db;
 	}
 }

@@ -16,7 +16,7 @@ public class Item {
 	private String categ;
 	private float price;
 	private List<Review> reviews;
-	private DBConnector con = DBConnector.con();
+	private DBConnector con;
 	
 	
 	public Item(String itemID, String name, String manu, String desc, String category, float price){
@@ -26,8 +26,10 @@ public class Item {
 		this.desc = desc;
 		this.categ = category;
 		this.price = price;
+		
 		reviews = new ArrayList<Review>();
 		
+		con = DBConnector.startup();
 		con.sqlQuery(String.format("SELECT * FROM Review WHERE item='%s'" , itemID));
 		try {
 			ResultSet dbresults = con.getResult();
@@ -36,6 +38,7 @@ public class Item {
 						dbresults.getString("publishDate"), dbresults.getInt("stars"),
 						dbresults.getString("description"), dbresults.getString("item")));
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

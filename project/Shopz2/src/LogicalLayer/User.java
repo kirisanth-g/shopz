@@ -30,7 +30,7 @@ public class User {
 	private Map<Item, Integer> cart = new HashMap<Item, Integer>();
 	
 	//DB connector
-	private DBConnector con = DBConnector.con();
+	private DBConnector con;
 	
 	
 	public User(String username){
@@ -42,6 +42,7 @@ public class User {
 		
 		ResultSet result;
 		//get and store info from User
+		con = DBConnector.startup();
 		con.sqlQuery(String.format("SELECT * FROM User WHERE username='%s'", this.username));
 		try {
 			result = con.getResult();

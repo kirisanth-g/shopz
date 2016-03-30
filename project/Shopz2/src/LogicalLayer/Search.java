@@ -13,13 +13,13 @@ import Backend.DBConnector;
  *
  */
 public class Search {
-	private static DBConnector con = DBConnector.con();
+	private static DBConnector con;
 	private static ResultSet dbresults;
 	private static List<Item> results;
 	
 	public static void search(String q){
+		con = DBConnector.startup();
 		results = new ArrayList<Item>(); 
-		//System.out.println("Search: " + q);
 		con.sqlQuery(String.format("SELECT * FROM Item WHERE name like '%s%%' OR "
 				+ "Manufacturer LIKE '%s%%' OR Description LIKE '%s%%' OR "
 				+ "Category LIKE '%s%%'" , q, q, q, q));
@@ -30,6 +30,7 @@ public class Search {
 				results.add(new Item(dbresults.getString("itemID"), dbresults.getString("name"), dbresults.getString("manufacturer"),
 						dbresults.getString("description"), dbresults.getString("category"), dbresults.getFloat("price")));
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
