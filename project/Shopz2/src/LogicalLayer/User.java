@@ -124,7 +124,7 @@ public class User {
 		//Store Payment
 		con.DDLStatement(String.format("UPDATE PaymentInfo SET name='%s', cardNumber=%d,"
 				+ " expDate='%s', ccv=%d, cardType='%s' WHERE username='%s'", 
-				this.name, this.cardnum, this.expDate, this.ccv, this.cardType, 
+				this.payName, this.cardnum, this.expDate, this.ccv, this.cardType, 
 				this.username));
 		
 		//Store Cart items and quantity
