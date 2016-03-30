@@ -36,7 +36,7 @@ public class Item {
 		return reviews;
 	}
 	
-	public void writeReview(String title, String pubDate, int stars,
+	public void writeReview(String title, int stars,
 			String desc){
 		con = DBConnector.startup();
 		con.DDLStatement(String.format("INSERT INTO Review (title, stars, description, item) VALUES ('%s', %d, '%s', %d)", 
