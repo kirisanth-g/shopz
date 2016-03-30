@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
+import LogicalLayer.Item;
 import UI.ViewController.ViewID;
 
 import org.eclipse.swt.widgets.Button;
@@ -20,6 +21,8 @@ public class ItemEntryUI extends Composite implements View {
 	private Label label;
 	private Button btnViewReviews;
 	private Button btnAddReview;
+	
+	private Item item;
 
 	/**
 	 * Create the composite.
@@ -27,8 +30,9 @@ public class ItemEntryUI extends Composite implements View {
 	 * @param parent
 	 * @param style
 	 */
-	public ItemEntryUI(Composite parent, int style)  {
+	public ItemEntryUI(Composite parent, int style, Item item)  {
 		super(parent, style);
+		this.item = item; 
 		setLayout(new GridLayout(6, false));
 		
 		label = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -96,22 +100,19 @@ public class ItemEntryUI extends Composite implements View {
 		// sample call
 		resetView();
 	}
-
+	
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
 
 	public void resetView() {
-		itemId.setText("Item ID");
-		itemName.setText("itemName");
-		manufacturer.setText("Manufacturer");
-		category.setText("category");
-		price.setText("price");
-		desc.setText("This is supposed to be a really long line of text. Supports auto "
-				+ "wrapping and scrolling But i don't if this wokrs, I guess I have to type"
-				+ " a little bit more to see what will happen on this text bar. I'm running out of"
-				+ " energy at this rate. all i neeed now is a little more text");
+		itemId.setText(item.getItemID());
+		itemName.setText(item.getName());
+		manufacturer.setText(item.getManu());
+		category.setText(item.getCateg());
+		price.setText("$" + String.format("%.2f", item.getPrice()));
+		desc.setText(item.getDesc());
 		btnAddToCart.setText("Add to Cart");
 		btnViewReviews.setText("Show Reviews");
 		btnAddReview.setText("Add Review");

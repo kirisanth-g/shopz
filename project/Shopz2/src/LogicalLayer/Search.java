@@ -15,9 +15,11 @@ import Backend.DBConnector;
 public class Search {
 	private static DBConnector con = DBConnector.con();
 	private static ResultSet dbresults;
-	private static List<Item> results = new ArrayList<Item>();
+	private static List<Item> results;
 	
 	public static void search(String q){
+		results = new ArrayList<Item>(); 
+		//System.out.println("Search: " + q);
 		con.sqlQuery(String.format("SELECT * FROM Item WHERE name like '%s%%' OR "
 				+ "Manufacturer LIKE '%s%%' OR Description LIKE '%s%%' OR "
 				+ "Category LIKE '%s%%'" , q, q, q, q));

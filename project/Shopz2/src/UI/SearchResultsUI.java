@@ -45,7 +45,7 @@ public class SearchResultsUI extends Composite implements View{
 		//this is the internal composite which does the expanding, in here you put your search entries
 		composite = new Composite(scrolledComposite, SWT.NONE);
 		composite.setLayout(new FillLayout(SWT.VERTICAL));	
-		resetView();
+		//resetView();
 		
 		scrolledComposite.setContent(composite);
 		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
@@ -64,10 +64,8 @@ public class SearchResultsUI extends Composite implements View{
 		
 		//get the data from search
 		 List<Item> results = Search.getResults();
-		 
-		 for (Item item : results){ 
-			 System.out.println(item.getName());
-		 }
+		
+		
 		
 		
 		 //have it so that you insert the Item in to build the ui... makes a lot more sense,and it makes update eaiser
@@ -75,11 +73,16 @@ public class SearchResultsUI extends Composite implements View{
 		for (Control child : composite.getChildren()) {
 			child.dispose();
 		}
-		for (int i = 0; i < 10 ; i++){
-			ItemEntryUI searchItemPanel = new ItemEntryUI(composite, SWT.NONE);
-			searchItemPanel.resetView();
-			itemList.add(searchItemPanel);
-		}
+		 for (Item item : results){ 
+			 System.out.println(results.isEmpty());
+			 ItemEntryUI searchItemPanel = new ItemEntryUI(composite, SWT.NONE, item );
+			 itemList.add(searchItemPanel);
+		 }
+//		for (int i = 0; i < 10 ; i++){
+//			ItemEntryUI searchItemPanel = new ItemEntryUI(composite, SWT.NONE);
+//			searchItemPanel.resetView();
+//			itemList.add(searchItemPanel);
+//		}
 		composite.layout();
 		
 		//this is where you might need to refernce Search.java for the last search term.
