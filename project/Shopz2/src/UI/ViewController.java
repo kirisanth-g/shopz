@@ -109,6 +109,10 @@ private static StackLayout layout;
 	
   }
   
+  public static void refreshCurrent(){
+	  load(viewStack.peek());
+  }
+  
   //maybe call this in the other methods
   public static void switchView(ViewID pid){
 	  //puts the new page to visit on top of the stack

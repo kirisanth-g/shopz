@@ -56,6 +56,9 @@ public class CartEntryUI extends Composite {
 				//WRITE THE REMOVE BUTTON HERE 
 				Login.getCurrentUser().removeFromCart(itemOrdered.getItemID(), 1);
 				resetView();
+				ViewController.refreshCurrent(); 
+				
+				
 			}
 		});
 
