@@ -148,7 +148,7 @@ public class AccountInfoUI extends Composite implements View {
 		expDate.setText(cuser.getExpDate());
 	
 		cardType.setText(cuser.getCardType());
-		sName.setText("This may not actually exist. Q_Q");
+		sName.setText(cuser.getPayName());
 		streetAddress.setText(cuser.getAddress());
 		postalCode.setText(cuser.getPostal());
 		city.setText(cuser.getCity());
@@ -163,7 +163,8 @@ public class AccountInfoUI extends Composite implements View {
 		User cuser = Login.getCurrentUser();
 		
 		cuser.setName(bName.getText());
-		cuser.setExpDate(expDate.getText()	);
+		cuser.setPayName(sName.getText());
+		cuser.setExpDate(expDate.getText());
 		cuser.setCardType(cardType.getText());
 		cuser.setAddress(streetAddress.getText());
 		cuser.setPostal(postalCode.getText());
