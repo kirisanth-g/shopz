@@ -9,7 +9,7 @@ import Backend.DBConnector;
 
 /**
  * Handles all search queries form the UI layer, into the db
- * @author Terence
+ * @author Terence, Kiwi
  *
  */
 public class Search {
@@ -18,7 +18,7 @@ public class Search {
 	private static List<Item> results = new ArrayList<Item>();
 	
 	public static void search(String q){
-		con.sqlQuery(String.format("SELECT * FROM User WHERE name like '%s%%' OR "
+		con.sqlQuery(String.format("SELECT * FROM Item WHERE name like '%s%%' OR "
 				+ "Manufacturer LIKE %s%% OR Description LIKE %s%% OR"
 				+ "Category LIKE %s%%" , q, q, q, q));
 		
