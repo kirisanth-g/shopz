@@ -23,6 +23,7 @@ public class User {
 	private String country = "";
 	
 	//Payment
+	private String payName = "";
 	private int cardnum  = INVALID;
 	private String expDate = "";
 	private int ccv = INVALID;
@@ -77,6 +78,7 @@ public class User {
 			result = con.getResult();
 			result.next();
 			
+			payName = result.getString("name");
 			cardnum = result.getInt("cardNumber");
 			expDate = result.getString("expDate");
 			ccv = result.getInt("ccv");
@@ -194,6 +196,16 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+	public String getPayName() {
+		return payName;
+	}
+
+
+	public void setPayName(String name) {
+		this.payName = name;
 	}
 
 
