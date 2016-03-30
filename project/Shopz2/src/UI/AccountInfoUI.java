@@ -145,7 +145,7 @@ public class AccountInfoUI extends Composite implements View {
 		cuser.load();
 		bName.setText(cuser.getName());
 		ccNum.setText(Integer.toString(cuser.getCardnum()));
-		expDate.setText(cuser.getName());
+		expDate.setText(cuser.getExpDate());
 		ccvNum.setText(Integer.toString(cuser.getCcv()));
 		cardType.setText(cuser.getCardType());
 		sName.setText("This may not actually exist. Q_Q");
