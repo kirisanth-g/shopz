@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
 import LogicalLayer.Item;
+import LogicalLayer.Login;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -53,6 +54,8 @@ public class CartEntryUI extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				//WRITE THE REMOVE BUTTON HERE 
+				Login.getCurrentUser().removeFromCart(itemOrdered.getItemID(), 1);
+				resetView();
 			}
 		});
 
