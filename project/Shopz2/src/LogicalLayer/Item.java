@@ -16,7 +16,7 @@ public class Item {
 	private String categ;
 	private float price;
 	private List<Review> reviews;
-	private DBConnector con;
+	private static DBConnector con;
 	
 	private static Item itemSelected; 
 	
@@ -63,6 +63,18 @@ public class Item {
 			reviews.add(new Review(reviewID, title, pubDate, stars, desc, this.itemID));
 			con.DDLStatement(String.format("INSERT INTO Review VALUES ('%s', '%s', '%s', %d, '%s', '%s')", 
 					reviewID, title, pubDate, stars, desc, this.itemID));
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void insertItem(String name, String manu, String desc, String category, float price){
+		con = DBConnector.startup();
+		try {
+			con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', %d)", 
+					name, manu, desc, category, price));
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
