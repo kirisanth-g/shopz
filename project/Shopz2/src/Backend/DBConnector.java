@@ -19,8 +19,10 @@ public class DBConnector {
 	private String pw;
 	private Statement stmt; 
 	private ResultSet result;
+	private static DBConnector con;
 	
 	public DBConnector(String server, String port, String user, String pw, String db){
+		DBConnector.con = this;
 		this.pw = pw;
 		this.user = user;
 		this.url = "jdbc:mysql://" + server + ":" + port +
