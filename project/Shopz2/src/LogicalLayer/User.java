@@ -210,7 +210,7 @@ public class User {
 
 
 	public boolean isAdmin() {
-		return true;
+		return isAdmin;
 	}
 
 	public String getAddress() {
