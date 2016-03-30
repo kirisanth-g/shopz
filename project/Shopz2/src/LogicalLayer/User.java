@@ -137,7 +137,7 @@ public class User {
 				
 				else{
 					//add if not, add
-					con.DDLStatement(String.format("INSERT INTO ShoppingCart VALUES (%s, %s, %d)", 
+					con.DDLStatement(String.format("INSERT INTO ShoppingCart VALUES ('%s', '%s', %d)", 
 							this.username, key.getItemID(), cart.get(key)));
 				}
 			} catch (SQLException e) {
