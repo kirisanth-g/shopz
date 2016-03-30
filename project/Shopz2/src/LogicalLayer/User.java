@@ -119,7 +119,7 @@ public class User {
 		
 		//Store Payment
 		con.DDLStatement(String.format("UPDATE PaymentInfo SET name='%s', cardNumber=%d,"
-				+ " expDate='%s', ccv=%d, cardType='%s' WHERE user='%s'", 
+				+ " expDate='%s', ccv=%d, cardType='%s' WHERE username='%s'", 
 				this.name, this.cardnum, this.expDate, this.ccv, this.cardType, 
 				this.username));
 		
@@ -151,8 +151,10 @@ public class User {
 	//should add to cached cart or update the quantity of it
 	public void addToCart(Item item, int quantity){
 		for(Item key: cart.keySet()){
-			if(key.getItemID() == item.getItemID()){
-				cart.put(key, cart.get(key)+quantity);
+			if(key.getItemID().equals(item.getItemID())){
+				int old = cart.get(key);
+				cart.remove(key);
+				cart.put(item, old+quantity);
 				return;
 			}
 			
