@@ -10,14 +10,13 @@ public class Review {
 	private String description;
 	private String itemID;
 	
-	public Review(String reviewID, String title, String pubDate, int stars, 
-			boolean helpful, String desc, String itemID){
+	public Review(String reviewID, String title, String pubDate, int stars,
+			String desc, String itemID){
 		
 		this.reviewID = reviewID;
 		this.title = title;
 		this.publishDate = pubDate;
 		this.stars = stars;
-		this.helpful = helpful;
 		this.description = desc;
 		this.itemID = itemID;
 		
