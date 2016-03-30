@@ -10,8 +10,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import LogicalLayer.Item;
+
 public class AdminAddItemUI extends Composite implements View {
-	private Label itemName, manufacturer, category, price ;
+	private Label itemName, manufacturer, category, price;
 	private Text descBody;
 
 	private Button btnAddToShop;
@@ -84,8 +86,9 @@ public class AdminAddItemUI extends Composite implements View {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// put add to shop thing here
+				createItem();
 				// then exit the view yourself
-				ViewController.prevView();
+
 			}
 		});
 		new Label(this, SWT.NONE);
@@ -93,7 +96,7 @@ public class AdminAddItemUI extends Composite implements View {
 		new Label(this, SWT.NONE);
 
 		// sample call
-		resetView();
+		//resetView();
 	}
 
 	@Override
@@ -114,5 +117,18 @@ public class AdminAddItemUI extends Composite implements View {
 		categoryEntry.setText("");
 		ManufacturerEntry.setText("");
 		priceEntry.setText("");
+	}
+
+	public void createItem() {
+		float tempPrice;
+		try {
+			tempPrice = Float.parseFloat(priceEntry.getText());
+		} catch (NumberFormatException e) {
+			System.out.println("INvalid price");
+			return;
+		}
+		Item.insertItem(itemName.getText(), manufacturer.getText(), descBody.getText(), categoryEntry.getText(),
+				tempPrice);
+		ViewController.prevView();
 	}
 }

@@ -23,6 +23,7 @@ public class User {
 	private String country = "";
 	
 	//Payment
+	private String payName = "";
 	private int cardnum  = INVALID;
 	private String expDate = "";
 	private int ccv = INVALID;
@@ -37,6 +38,7 @@ public class User {
 	
 	public User(String username){
 		this.username = username;
+		this.load();
 	}
 	
 	
@@ -52,6 +54,7 @@ public class User {
 			
 			name = result.getString("name");
 			isAdmin = result.getBoolean("isAdmin");
+			System.out.println(result.getBoolean("isAdmin"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,6 +80,7 @@ public class User {
 			result = con.getResult();
 			result.next();
 			
+			payName = result.getString("name");
 			cardnum = result.getInt("cardNumber");
 			expDate = result.getString("expDate");
 			ccv = result.getInt("ccv");
@@ -174,8 +178,11 @@ public class User {
 	public void removeFromCart(String itemID, int quantity){
 		
 		for(Item key: cart.keySet()){
-			if(key.getItemID() == itemID){
+			if(key.getItemID().equals(itemID)){
 				if(cart.get(key)-quantity <= 1){
+					con = DBConnector.startup();
+					con.DDLStatement(String.format("DELETE FROM ShoppingCart WHERE username='%s' AND item=%d",
+							this.username, Integer.parseInt(itemID)));
 					cart.remove(key);
 				}
 				else{
@@ -184,7 +191,7 @@ public class User {
 				break;
 			}
 		}
-		
+		this.store();
 	}
 	
 	public String getUsername() {
@@ -200,10 +207,20 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	public String getPayName() {
+		return payName;
+	}
+
+
+	public void setPayName(String name) {
+		this.payName = name;
+	}
 
 
 	public boolean isAdmin() {
-		return true;
+		return isAdmin;
 	}
 
 	public String getAddress() {

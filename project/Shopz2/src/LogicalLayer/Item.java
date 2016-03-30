@@ -73,7 +73,7 @@ public class Item {
 	public static void insertItem(String name, String manu, String desc, String category, float price){
 		con = DBConnector.startup();
 		try {
-			con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', %d)", 
+			con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', %f)", 
 					name, manu, desc, category, price));
 			con.close();
 		} catch (SQLException e) {

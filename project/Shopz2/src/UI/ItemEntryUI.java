@@ -102,7 +102,7 @@ public class ItemEntryUI extends Composite implements View {
 		new Label(this, SWT.NONE);
 
 		// sample call
-		resetView();
+		//resetView();
 	}
 	
 	@Override

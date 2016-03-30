@@ -1,6 +1,7 @@
 package UI;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -8,6 +9,9 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+
+import LogicalLayer.Item;
+import LogicalLayer.Review;
 
 public class ReviewListUI extends Composite implements View {
 	private Label title;
@@ -32,7 +36,7 @@ public class ReviewListUI extends Composite implements View {
 		composite = new Composite(scrolledComposite, SWT.NONE);
 		composite.setLayout(new FillLayout(SWT.VERTICAL));
 
-		resetView();
+		//resetView();
 		scrolledComposite.setContent(composite);
 		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
@@ -40,10 +44,11 @@ public class ReviewListUI extends Composite implements View {
 
 	@Override
 	public void resetView() {
-		title.setText("Reviews for ______");
-		// i should change this to a map of primary key: review entry object.
-		itemList = new ArrayList<ReviewEntryUI>();
+		Item citem = Item.getItemSelected();
+		title.setText("Reviews for: " + citem.getName());
 
+		List<Review> reviewList = Item.getItemSelected().getReviews(); 
+		ArrayList<ReviewEntryUI> panelList = new ArrayList<ReviewEntryUI>();
 		// normally grab all the Item objects for logical layer and add them in
 		// here
 		
@@ -52,12 +57,17 @@ public class ReviewListUI extends Composite implements View {
 		for (Control child : composite.getChildren()) {
 			child.dispose();
 		}
-		for (int i = 0; i < 10; i++) {
-			ReviewEntryUI reviewEntry = new ReviewEntryUI(composite, SWT.NONE);
-		//	System.out.println("rebuilding Review NEtry ");
-			reviewEntry.resetView();
-			itemList.add(reviewEntry);
+		for (Review review : reviewList){
+			ReviewEntryUI reviewItemPanel = new ReviewEntryUI(composite, SWT.NONE, review);
+			reviewItemPanel.resetView();
+			panelList.add(reviewItemPanel);
 		}
+		//for (int i = 0; i < 10; i++) {
+		//	ReviewEntryUI reviewEntry = new ReviewEntryUI(composite, SWT.NONE);
+		//	System.out.println("rebuilding Review NEtry ");
+		//	reviewEntry.resetView();
+		//	itemList.add(reviewEntry);
+		//}
 		composite.layout();
 		//System.out.println(composite.getChildren());
 

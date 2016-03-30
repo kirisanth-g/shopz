@@ -72,6 +72,7 @@ public class SearchResultsUI extends Composite implements View{
 		 for (Item item : results){ 
 			 System.out.println(results.isEmpty());
 			 ItemEntryUI searchItemPanel = new ItemEntryUI(composite, SWT.NONE, item );
+			 searchItemPanel.resetView();
 			 itemList.add(searchItemPanel);
 		 }
 //		for (int i = 0; i < 10 ; i++){
