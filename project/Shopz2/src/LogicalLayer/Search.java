@@ -1,6 +1,7 @@
 package LogicalLayer;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,29 @@ import Backend.DBConnector;
  *
  */
 public class Search {
-	private DBConnector con;
-	private ResultSet dbresults;
-	private List<Item> results = new ArrayList<Item>(); 
+	private static DBConnector con = DBConnector.con();
+	private static ResultSet dbresults;
+	private static List<Item> results = new ArrayList<Item>();
 	
-	public Search(){
-		con = new DBConnector("localhost", "3306", "root", "admin", "Shopz");
+	public static void search(String q){
+		con.sqlQuery(String.format("SELECT * FROM User WHERE name like '%s%%' OR "
+				+ "Manufacturer LIKE %s%% OR Description LIKE %s%% OR"
+				+ "Category LIKE %s%%" , q, q, q, q));
+		
+		try {
+			dbresults = con.getResult();
+			while(dbresults.next()){
+				results.add(new Item(dbresults.getString("itemID"), dbresults.getString("name"), dbresults.getString("manufacturer"),
+						dbresults.getString("description"), dbresults.getString("category"), dbresults.getFloat("price")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	public static List<Item> getResults(){
+		return results;
+	}
 	
 }
