@@ -144,31 +144,57 @@ public class AccountInfoUI extends Composite implements View {
 		User cuser = Login.getCurrentUser();
 		cuser.load();
 		bName.setText(cuser.getName());
-		ccNum.setText(Integer.toString(cuser.getCardnum()));
+		
 		expDate.setText(cuser.getExpDate());
-		ccvNum.setText(Integer.toString(cuser.getCcv()));
+	
 		cardType.setText(cuser.getCardType());
 		sName.setText("This may not actually exist. Q_Q");
 		streetAddress.setText(cuser.getAddress());
 		postalCode.setText(cuser.getPostal());
 		city.setText(cuser.getCity());
 		country.setText(cuser.getCountry());
+		
+		
+		if(cuser.getCardnum() == cuser.INVALID) ccNum.setText(""); else ccNum.setText(Integer.toString(cuser.getCardnum()));
+		if (cuser.getCcv() == cuser.INVALID) ccvNum.setText(""); else ccvNum.setText(Integer.toString(cuser.getCcv()));
 	}
 	
 	public void setValues(){
-		bName.getText();
-		ccNum.getText();
-		expDate.getText();
-		ccvNum.getText();
-		cardType.getText();
-		sName.getText();
-		sName.getText();
-		streetAddress.getText();
-		postalCode.getText();
-		city.getText();
-		country.getText();
+		User cuser = Login.getCurrentUser();
+		
+		cuser.setName(bName.getText());
+		cuser.setExpDate(expDate.getText()	);
+		cuser.setCardType(cardType.getText());
+		cuser.setAddress(streetAddress.getText());
+		cuser.setPostal(postalCode.getText());
+		cuser.setCity(city.getText());
+		cuser.setCountry(country.getText());
+		
+
+		
+		
+		//String ccNumText = ccNum.getText();
+		//String ccvNumText = ccvNum.getText();
+		
+		//checks for proper card numbers to make sure they are correct
+		//only checks to see if the chars are valid, not sure
+		try{ 
+		cuser.setCardnum(Integer.parseInt(ccNum.getText()));
+		}
+		catch (NumberFormatException e){
+			cuser.setCardnum(cuser.INVALID);
+		}
+		
+		try{
+			cuser.setCcv(Integer.parseInt(ccvNum.getText()));
+		}
+		catch (NumberFormatException e){
+			cuser.setCcv(cuser.INVALID);
+		}
 		
 		System.out.println("Changes will be saved");
+		cuser.store();
+		ViewController.prevView();
 	}
 	
 	public void editMode(){

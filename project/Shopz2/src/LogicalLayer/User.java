@@ -8,23 +8,25 @@ import java.util.Map;
 import Backend.DBConnector;
 
 public class User {
+	public final int INVALID = -1; 
+	
 	
 	//User
-	private String username;
-	private String name;
-	private boolean isAdmin;
+	private String username = "";
+	private String name = "";
+	private boolean isAdmin ;
 	
 	//Address
-	private String address;
-	private String city;
-	private String postal;
-	private String country;
+	private String address = "";
+	private String city  = "";
+	private String postal = "";
+	private String country = "";
 	
 	//Payment
-	private int cardnum;
-	private String expDate;
-	private int ccv;
-	private String cardType;
+	private int cardnum  = INVALID;
+	private String expDate = "";
+	private int ccv = INVALID;
+	private String cardType = "";
 	
 	//ShoppingCart
 	private Map<Item, Integer> cart = new HashMap<Item, Integer>();
