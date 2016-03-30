@@ -9,6 +9,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
+
+import LogicalLayer.Login;
+import LogicalLayer.User;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -132,21 +136,23 @@ public class AccountInfoUI extends Composite implements View {
 		
 		
 		//set initially to read mod
-		resetView();
+		//resetView();
 	}
 	
 	public void getValues(){
 		//this is where you should get query the db and get the data
-		bName.setText("Alice");
-		ccNum.setText("1234567890");
-		expDate.setText("01/17");
-		ccvNum.setText("987");
-		cardType.setText("Visa");
-		sName.setText("Alice");
-		streetAddress.setText("101 Military Trail");
-		postalCode.setText("L3C1J2");
-		city.setText("Toronto");
-		country.setText("Canada");
+		User cuser = Login.getCurrentUser();
+		cuser.load();
+		bName.setText(cuser.getName());
+		ccNum.setText(Integer.toString(cuser.getCardnum()));
+		expDate.setText(cuser.getName());
+		ccvNum.setText(Integer.toString(cuser.getCcv()));
+		cardType.setText(cuser.getCardType());
+		sName.setText("This may not actually exist. Q_Q");
+		streetAddress.setText(cuser.getAddress());
+		postalCode.setText(cuser.getPostal());
+		city.setText(cuser.getCity());
+		country.setText(cuser.getCountry());
 	}
 	
 	public void setValues(){
