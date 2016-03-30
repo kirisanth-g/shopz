@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.28, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: Shopz
 -- ------------------------------------------------------
--- Server version	5.6.28-1
+-- Server version	5.6.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Address`
+-- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `Address`;
+DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Address` (
+CREATE TABLE `address` (
   `user` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -33,47 +33,47 @@ CREATE TABLE `Address` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Address`
+-- Dumping data for table `address`
 --
 
-LOCK TABLES `Address` WRITE;
-/*!40000 ALTER TABLE `Address` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Address` ENABLE KEYS */;
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Inventory`
+-- Table structure for table `inventory`
 --
 
-DROP TABLE IF EXISTS `Inventory`;
+DROP TABLE IF EXISTS `inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Inventory` (
+CREATE TABLE `inventory` (
   `itemID` varchar(255) NOT NULL,
   `locations` varchar(255) NOT NULL,
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`itemID`,`locations`),
-  CONSTRAINT `Inventory_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `Item` (`itemID`)
+  CONSTRAINT `Inventory_ibfk_1` FOREIGN KEY (`itemID`) REFERENCES `item` (`itemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Inventory`
+-- Dumping data for table `inventory`
 --
 
-LOCK TABLES `Inventory` WRITE;
-/*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
+LOCK TABLES `inventory` WRITE;
+/*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Item`
+-- Table structure for table `item`
 --
 
-DROP TABLE IF EXISTS `Item`;
+DROP TABLE IF EXISTS `item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Item` (
+CREATE TABLE `item` (
   `itemID` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `manufacturer` varchar(255) NOT NULL,
@@ -85,22 +85,24 @@ CREATE TABLE `Item` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Item`
+-- Dumping data for table `item`
 --
 
-LOCK TABLES `Item` WRITE;
-/*!40000 ALTER TABLE `Item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Item` ENABLE KEYS */;
+LOCK TABLES `item` WRITE;
+/*!40000 ALTER TABLE `item` DISABLE KEYS */;
+INSERT INTO `item` VALUES ('0001','Apple iPhone 6S','Apple','So expensive, but it just works. You are better off with the 6','Electronic',1000);
+INSERT INTO `item` VALUES ('0201','Nexus 6','Motorola','6th Etd','Elec',600);
+/*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `PaymentInfo`
+-- Table structure for table `paymentinfo`
 --
 
-DROP TABLE IF EXISTS `PaymentInfo`;
+DROP TABLE IF EXISTS `paymentinfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PaymentInfo` (
+CREATE TABLE `paymentinfo` (
   `username` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `cardNumber` int(11) NOT NULL,
@@ -108,27 +110,27 @@ CREATE TABLE `PaymentInfo` (
   `ccv` int(11) NOT NULL,
   `cardType` varchar(255) NOT NULL,
   KEY `username` (`username`),
-  CONSTRAINT `PaymentInfo_ibfk_1` FOREIGN KEY (`username`) REFERENCES `User` (`username`)
+  CONSTRAINT `PaymentInfo_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `PaymentInfo`
+-- Dumping data for table `paymentinfo`
 --
 
-LOCK TABLES `PaymentInfo` WRITE;
-/*!40000 ALTER TABLE `PaymentInfo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PaymentInfo` ENABLE KEYS */;
+LOCK TABLES `paymentinfo` WRITE;
+/*!40000 ALTER TABLE `paymentinfo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `paymentinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Review`
+-- Table structure for table `review`
 --
 
-DROP TABLE IF EXISTS `Review`;
+DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Review` (
+CREATE TABLE `review` (
   `reviewID` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `publishDate` varchar(255) NOT NULL,
@@ -138,52 +140,52 @@ CREATE TABLE `Review` (
   `item` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`reviewID`),
   KEY `item` (`item`),
-  CONSTRAINT `Review_ibfk_1` FOREIGN KEY (`item`) REFERENCES `Item` (`itemID`)
+  CONSTRAINT `Review_ibfk_1` FOREIGN KEY (`item`) REFERENCES `item` (`itemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Review`
+-- Dumping data for table `review`
 --
 
-LOCK TABLES `Review` WRITE;
-/*!40000 ALTER TABLE `Review` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Review` ENABLE KEYS */;
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ShoppingCart`
+-- Table structure for table `shoppingcart`
 --
 
-DROP TABLE IF EXISTS `ShoppingCart`;
+DROP TABLE IF EXISTS `shoppingcart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ShoppingCart` (
+CREATE TABLE `shoppingcart` (
   `Username` varchar(255) DEFAULT NULL,
   `Item` varchar(255) NOT NULL,
   `Quantity` int(11) NOT NULL,
   KEY `Username` (`Username`),
-  CONSTRAINT `ShoppingCart_ibfk_1` FOREIGN KEY (`Username`) REFERENCES `User` (`username`)
+  CONSTRAINT `ShoppingCart_ibfk_1` FOREIGN KEY (`Username`) REFERENCES `user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ShoppingCart`
+-- Dumping data for table `shoppingcart`
 --
 
-LOCK TABLES `ShoppingCart` WRITE;
-/*!40000 ALTER TABLE `ShoppingCart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ShoppingCart` ENABLE KEYS */;
+LOCK TABLES `shoppingcart` WRITE;
+/*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `User`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `User`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `User` (
+CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -193,15 +195,15 @@ CREATE TABLE `User` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `User`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `User` WRITE;
-/*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('0','0','0',NULL);
-INSERT INTO `User` VALUES ('user1','helen','bam','\0');
-INSERT INTO `User` VALUES ('user2','terence','fastcat','\0');
-/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('0','0','0',NULL);
+INSERT INTO `user` VALUES ('user1','helen','bam','\0');
+INSERT INTO `user` VALUES ('user2','terence','fastcat','\0');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -213,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-28  2:49:21
+-- Dump completed on 2016-03-29 20:55:49
