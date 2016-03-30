@@ -6,7 +6,6 @@ public class Review {
 	private String title;
 	private String publishDate;
 	private int stars;
-	private boolean helpful;
 	private String description;
 	private String itemID;
 	
@@ -20,6 +19,14 @@ public class Review {
 		this.description = desc;
 		this.itemID = itemID;
 		
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setStars(int stars) {
+		this.stars = stars;
 	}
 
 	public String getReviewID() {
@@ -38,10 +45,6 @@ public class Review {
 
 	public int getStars() {
 		return stars;
-	}
-
-	public boolean isHelpful() {
-		return helpful;
 	}
 
 
