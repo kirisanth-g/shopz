@@ -38,6 +38,7 @@ public class User {
 	
 	public User(String username){
 		this.username = username;
+		this.load();
 	}
 	
 	
@@ -53,6 +54,7 @@ public class User {
 			
 			name = result.getString("name");
 			isAdmin = result.getBoolean("isAdmin");
+			System.out.println(result.getBoolean("isAdmin"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -171,8 +173,11 @@ public class User {
 	public void removeFromCart(String itemID, int quantity){
 		
 		for(Item key: cart.keySet()){
-			if(key.getItemID() == itemID){
+			if(key.getItemID().equals(itemID)){
 				if(cart.get(key)-quantity <= 1){
+					con = DBConnector.startup();
+					con.DDLStatement(String.format("DELETE FROM ShoppingCart WHERE username='%s' AND item=%d",
+							this.username, Integer.parseInt(itemID)));
 					cart.remove(key);
 				}
 				else{
@@ -181,7 +186,7 @@ public class User {
 				break;
 			}
 		}
-		
+		this.store();
 	}
 	
 	public String getUsername() {

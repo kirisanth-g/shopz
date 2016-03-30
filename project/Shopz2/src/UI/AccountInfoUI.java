@@ -142,7 +142,7 @@ public class AccountInfoUI extends Composite implements View {
 	public void getValues(){
 		//this is where you should get query the db and get the data
 		User cuser = Login.getCurrentUser();
-		cuser.load();
+		//cuser.load();
 		bName.setText(cuser.getName());
 		
 		expDate.setText(cuser.getExpDate());
