@@ -94,7 +94,7 @@ public class User {
 		try {
 			result = con.getResult();
 			while(result.next()){
-				cart.put(new Item(result.getString("itemID"), result.getString("name"), result.getString("manufacturer"),
+				cart.put(new Item(Integer.toString(result.getInt("itemID")), result.getString("name"), result.getString("manufacturer"),
 						result.getString("description"), result.getString("category"), result.getFloat("price")),
 						result.getInt("Quantity"));
 			}
@@ -127,18 +127,21 @@ public class User {
 		for(Item key: cart.keySet()) {
 			
 			//need to check for new items added; check if exists
-			con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM ShoppingCart WHERE Item='%s')", key.getItemID()));
+			con.sqlQuery(String.format("SELECT EXISTS(SELECT 1 FROM ShoppingCart WHERE Item=%d)", Integer.parseInt(key.getItemID())));
 			try {
-				if(con.getResult().isBeforeFirst()){
+				ResultSet res = con.getResult();
+				res.next();
+				
+				if(res.getBoolean(1)){
 					//if its already in db, update
-					con.DDLStatement(String.format("UPDATE ShoppingCart SET Quantity=%d WHERE Item='%s'", 
-							cart.get(key), key.getItemID()));
+					con.DDLStatement(String.format("UPDATE ShoppingCart SET Quantity=%d WHERE Item=%d", 
+							cart.get(key), Integer.parseInt(key.getItemID())));
 				}
 				
 				else{
 					//add if not, add
-					con.DDLStatement(String.format("INSERT INTO ShoppingCart VALUES ('%s', '%s', %d)", 
-							this.username, key.getItemID(), cart.get(key)));
+					con.DDLStatement(String.format("INSERT INTO ShoppingCart VALUES ('%s', %d, %d)", 
+							this.username, Integer.parseInt(key.getItemID()), cart.get(key)));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -155,6 +158,7 @@ public class User {
 				int old = cart.get(key);
 				cart.remove(key);
 				cart.put(item, old+quantity);
+				this.store();
 				return;
 			}
 			
@@ -162,6 +166,7 @@ public class User {
 		//if it reaches here than that means the item was not in the
 		//cached list
 		cart.put(item, quantity);
+		this.store();
 	}
 	
 	/*remove a certain amount of that item and will check if difference more
@@ -302,30 +307,34 @@ public class User {
 	
 	/*FOR ADMINS ONLY: this will overwrite the info of the item associated to that ID so its like an add/edit
 	  for Item table*/
-	public boolean addItem(String id, String name, String manu, String desc, 
+	public boolean addItem(String name, String manu, String desc, 
 			String categ, float price){
 		//check if exists with same ID
-		con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM Item WHERE itemID='%s')", id));
-		try {
-			if(con.getResult().isBeforeFirst()){
-				//overwrite info
-				return con.DDLStatement(String.format("UPDATE Item SET name='%s', manufacturer='%s', "
-						+ "description='%s', category='%s', price=%.2f WHERE itemID='%s'", 
-						name, manu, desc, categ, price, id));
-			}
-			else{
-				return con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', '%s', %.2f)", 
-						id, name, manu, desc, categ, price));
-			}
-		} catch(SQLException e){
-			e.printStackTrace();
-		}
-		return false;
+//		con.sqlQuery(String.format("IF EXISTS(SELECT 1 FROM Item WHERE itemID=%d)", id));
+//		try {
+//			if(con.getResult().isBeforeFirst()){
+//				//overwrite info
+//				return con.DDLStatement(String.format("UPDATE Item SET name='%s', manufacturer='%s', "
+//						+ "description='%s', category='%s', price=%.2f WHERE itemID='%s'", 
+//						name, manu, desc, categ, price, id));
+//			}
+//			else{
+//				return con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', '%s', %.2f)", 
+//						id, name, manu, desc, categ, price));
+//			}
+//		} catch(SQLException e){
+//			e.printStackTrace();
+//		}
+//		return false;
+		
+		return con.DDLStatement(String.format("INSERT INTO Item (name, manufacturer, description, category, price)"
+				+ " VALUES ('%s', '%s', '%s', '%s', %.2f)", 
+				name, manu, desc, categ, price));
 	}
 	
 	//FOR ADMINS ONLY: delete item from Item table
 	public boolean removeItem(String itemID){
-		return con.DDLStatement(String.format("DELETE FROM Item WHERE itemID='%s'", itemID));
+		return con.DDLStatement(String.format("DELETE FROM Item WHERE itemID=%d", Integer.parseInt(itemID)));
 	}
 
 }
