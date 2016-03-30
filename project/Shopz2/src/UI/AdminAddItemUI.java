@@ -21,7 +21,7 @@ public class AdminAddItemUI extends Composite implements View {
 	private Label lblDescription;
 	private Text itemNameEntry;
 	private Text categoryEntry;
-	private Text ManufacturerEntry;
+	private Text manufacturerEntry;
 	private Text priceEntry;
 
 	/**
@@ -59,8 +59,8 @@ public class AdminAddItemUI extends Composite implements View {
 
 		manufacturer = new Label(this, SWT.NONE);
 
-		ManufacturerEntry = new Text(this, SWT.BORDER);
-		ManufacturerEntry.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		manufacturerEntry = new Text(this, SWT.BORDER);
+		manufacturerEntry.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 
@@ -115,7 +115,7 @@ public class AdminAddItemUI extends Composite implements View {
 		descBody.setText("");
 		itemNameEntry.setText("");
 		categoryEntry.setText("");
-		ManufacturerEntry.setText("");
+		manufacturerEntry.setText("");
 		priceEntry.setText("");
 	}
 
@@ -124,10 +124,10 @@ public class AdminAddItemUI extends Composite implements View {
 		try {
 			tempPrice = Float.parseFloat(priceEntry.getText());
 		} catch (NumberFormatException e) {
-			System.out.println("INvalid price");
+			System.out.println("Invalid price");
 			return;
 		}
-		Item.insertItem(itemName.getText(), manufacturer.getText(), descBody.getText(), categoryEntry.getText(),
+		Item.insertItem(itemNameEntry.getText(), manufacturerEntry.getText(), descBody.getText(), categoryEntry.getText(),
 				tempPrice);
 		ViewController.prevView();
 	}

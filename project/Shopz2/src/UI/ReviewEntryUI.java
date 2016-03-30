@@ -58,6 +58,7 @@ public class ReviewEntryUI extends Composite implements View  {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						//here is where you set and update the review body
+						review.editDesc(reviewBody.getText());
 						viewMode();
 					}
 				});
