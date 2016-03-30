@@ -98,7 +98,7 @@ public class AddReviewUI extends Composite implements View {
 		//creeate the new review object and save it to the cart
 		//save to the db
 		///maybe do the pub date internally
-		Item.getItemSelected().writeReview(title, "",stars, desc);
+		Item.getItemSelected().writeReview(title,stars, desc);
 		ViewController.prevView();
 	}
 	@Override
