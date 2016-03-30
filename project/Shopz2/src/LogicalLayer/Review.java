@@ -1,5 +1,7 @@
 package LogicalLayer;
 
+import Backend.DBConnector;
+
 public class Review {
 	
 	private String reviewID;
@@ -8,6 +10,7 @@ public class Review {
 	private int stars;
 	private String description;
 	private String itemID;
+	private DBConnector con;
 	
 	public Review(String reviewID, String title, String pubDate, int stars,
 			String desc, String itemID){
@@ -58,6 +61,13 @@ public class Review {
 
 	public String getItemID() {
 		return itemID;
+	}
+
+	public void editDesc(String text) {
+		this.setDescription(text);
+		con = DBConnector.startup();
+		con.DDLStatement(String.format("UPDATE Review SET description='%s' WHERE reviewID=%d", 
+				text, this.getItemID()));
 	}
 
 }
