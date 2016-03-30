@@ -5,6 +5,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
+
+import LogicalLayer.Item;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 
@@ -12,14 +15,20 @@ public class CartEntryUI extends Composite {
 	private Text numberOrdered;
 	private Label itemName, price, quant;
 	private Button btnRemove;
+	
+	private Item itemOrdered;
+	private Integer quantity;
 
 	/**
 	 * Create the composite.
 	 * @param parent
 	 * @param style
 	 */
-	public CartEntryUI(Composite parent, int style) {
+	public CartEntryUI(Composite parent, int style, Item itemOrdered, Integer quantity) {
 		super(parent, style);
+		
+		this.itemOrdered = itemOrdered;
+		this.quantity = quantity;
 		setLayout(new GridLayout(7, false));
 		
 		itemName = new Label(this, SWT.NONE);
@@ -47,10 +56,11 @@ public class CartEntryUI extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	public void resetView(){
-		itemName.setText("Item Name");
-		price.setText("price");
+		itemName.setText(itemOrdered.getName());
+		price.setText("$" + String.format("%.2f", itemOrdered.getPrice()));
 		quant.setText("#");
-		numberOrdered.setText("5");
+		numberOrdered.setText(quantity.toString());
+		//STILL HAVE TO IMPLEMENT THIS
 		btnRemove.setText("Remove");
 		
 	}

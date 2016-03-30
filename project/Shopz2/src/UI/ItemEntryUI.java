@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
 import LogicalLayer.Item;
+import LogicalLayer.Login;
 import UI.ViewController.ViewID;
 
 import org.eclipse.swt.widgets.Button;
@@ -70,6 +71,7 @@ public class ItemEntryUI extends Composite implements View {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						// put add to cart function here
+						Login.getCurrentUser().addToCart(item, 1);
 					}
 				});
 

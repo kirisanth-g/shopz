@@ -64,10 +64,6 @@ public class SearchResultsUI extends Composite implements View{
 		
 		//get the data from search
 		 List<Item> results = Search.getResults();
-		
-		
-		
-		
 		 //have it so that you insert the Item in to build the ui... makes a lot more sense,and it makes update eaiser
 		ArrayList<ItemEntryUI> itemList = new ArrayList<ItemEntryUI>();
 		for (Control child : composite.getChildren()) {

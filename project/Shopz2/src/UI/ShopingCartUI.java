@@ -1,6 +1,7 @@
 package UI;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -9,6 +10,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+
+import LogicalLayer.Item;
+import LogicalLayer.Login;
 
 public class ShopingCartUI extends Composite implements View  {
 
@@ -31,7 +35,7 @@ public class ShopingCartUI extends Composite implements View  {
 		//setLayout(new FillLayout());
 		lblTitle = new Label(this, SWT.NONE);
 		lblTitle.setBounds(10, 10, 105, 14);
-		
+	
 		total = new Label(this, SWT.NONE);
 		total.setBounds(10, ViewController.MAX_HEIGHT-100, 59, 20);
 		
@@ -50,7 +54,7 @@ public class ShopingCartUI extends Composite implements View  {
 		
 		
 		
-		resetView();
+		//resetView();
 		
 		scrolledComposite.setContent(composite);
 		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
@@ -67,20 +71,31 @@ public class ShopingCartUI extends Composite implements View  {
 	}
 	
 	public  void resetView(){ 
+		System.out.println("Shoping cart UI resetVIEW");
 		lblTitle.setText("Shopping Cart");
 		total.setText("TOTAL:");
-		totalPrice.setText("$5.00");
+		
+		double total = 0; 
 		
 		
-		ArrayList<CartEntryUI> itemList = new ArrayList<CartEntryUI>();
+		Map<Item,Integer>itemList = Login.getCurrentUser().getCart();
+		ArrayList<CartEntryUI> viewlist = new ArrayList<CartEntryUI>();
 		for (Control child : composite.getChildren()) {
 			child.dispose();
 		}
-		for (int i = 0; i < 10 ; i++){
-			CartEntryUI searchItemPanel = new CartEntryUI(composite, SWT.BORDER);
+		for(Map.Entry<Item, Integer> entry :itemList.entrySet()){
+			CartEntryUI searchItemPanel = new CartEntryUI(composite,SWT.BORDER, entry.getKey(), entry.getValue());
 			searchItemPanel.resetView();
-			itemList.add(searchItemPanel);
+			viewlist.add(searchItemPanel);
+			//computes the total 
+			total+= entry.getKey().getPrice() * entry.getValue();
 		}
+//		for (int i = 0; i < 10 ; i++){
+//			CartEntryUI searchItemPanel = new CartEntryUI(composite, SWT.BORDER);
+//			searchItemPanel.resetView();
+//			itemList.add(searchItemPanel);
+//		}
+		totalPrice.setText("$" + String.format("%.2f", total));
 		composite.layout();
 		
 		//this is where you might need to reference Search.java for the last search term.
