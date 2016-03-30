@@ -84,6 +84,7 @@ public class AdminAddItemUI extends Composite implements View {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// put add to shop thing here
+				createItem(); 
 				// then exit the view yourself
 				ViewController.prevView();
 			}
@@ -114,5 +115,9 @@ public class AdminAddItemUI extends Composite implements View {
 		categoryEntry.setText("");
 		ManufacturerEntry.setText("");
 		priceEntry.setText("");
+	}
+	
+	public void createItem(){
+	//	Item.createItem();
 	}
 }
