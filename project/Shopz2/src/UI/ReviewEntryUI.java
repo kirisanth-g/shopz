@@ -1,5 +1,7 @@
 package UI;
 import LogicalLayer.Login;
+import LogicalLayer.Review;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
@@ -17,6 +19,8 @@ public class ReviewEntryUI extends Composite implements View  {
 	private Label lblTitle;
 	private Label lblStarsOut;
 	private Button btnSaveChanges;
+	
+	private Review review;
 
 	/**
 	 * Create the composite.
@@ -24,8 +28,9 @@ public class ReviewEntryUI extends Composite implements View  {
 	 * @param parent
 	 * @param style
 	 */
-	public ReviewEntryUI(Composite parent, int style) {
+	public ReviewEntryUI(Composite parent, int style, Review review) {
 		super(parent, style);
+		this.review = review;
 		setLayout(new GridLayout(2, false));
 				
 				lblTitle = new Label(this, SWT.NONE);
@@ -58,7 +63,7 @@ public class ReviewEntryUI extends Composite implements View  {
 				});
 
 		// sample call
-		resetView();
+		//resetView();
 	}
 
 	@Override
@@ -77,20 +82,16 @@ public class ReviewEntryUI extends Composite implements View  {
 	//you can only edit the body descroption
 	public void viewMode(){
 		//btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
-		btneditAdmin.setEnabled(true);
+		btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
 		reviewBody.setEditable(false);
 		btnSaveChanges.setEnabled(false);
 	}
 
 	public void resetView() {
 		viewMode(); 
-		reviewBody.setText("This is supposed to be a really long line of text. Supports auto "
-				+ "wrapping and scrolling But i don't if this wokrs, I guess I have to type"
-				+ " a little bit more to see what will happen on this text bar. I'm running out of"
-				+ " energy at this rate. all i neeed now is a little more text");
-		btneditAdmin.setText("Edit Review");
-		lblTitle.setText("Title");
-		lblStarsOut.setText("__ stars out of 5");
+		reviewBody.setText(review.getDescription());
+		lblTitle.setText(review.getTitle());
+		lblStarsOut.setText(review.getStars() + " stars out of 5");
 		btnSaveChanges.setText("Save Changes");
 	}
 
