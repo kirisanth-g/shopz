@@ -1,5 +1,12 @@
 package LogicalLayer;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Backend.DBConnector;
+
 public class Item {
 	
 	private String itemID;
@@ -8,6 +15,8 @@ public class Item {
 	private String desc;
 	private String categ;
 	private float price;
+	private List<Review> reviews;
+	private DBConnector con = DBConnector.con();
 	
 	
 	public Item(String itemID, String name, String manu, String desc, String category, float price){
@@ -17,9 +26,27 @@ public class Item {
 		this.desc = desc;
 		this.categ = category;
 		this.price = price;
+		reviews = new ArrayList<Review>();
+		
+		con.sqlQuery(String.format("SELECT * FROM Review WHERE item='%s'" , itemID));
+		try {
+			ResultSet dbresults = con.getResult();
+			while(dbresults.next()){
+				reviews.add(new Review(dbresults.getString("reviewID"),dbresults.getString("title"),
+						dbresults.getString("publishDate"), dbresults.getInt("stars"),
+						dbresults.getString("description"), dbresults.getString("item")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
-
+	public List<Review> getReviews(){
+		return reviews;
+	}
+	
 	public String getItemID() {
 		return itemID;
 	}

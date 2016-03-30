@@ -26,8 +26,6 @@ public class Login {
 			}else if(password.equals(result.getString("password"))){
 				currentlyLoggedin = new User(username);
 				return true;
-			}else{
-				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

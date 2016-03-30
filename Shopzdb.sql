@@ -135,7 +135,6 @@ CREATE TABLE `review` (
   `title` varchar(255) NOT NULL,
   `publishDate` varchar(255) NOT NULL,
   `stars` int(11) NOT NULL,
-  `helpful` bit(1) DEFAULT NULL,
   `description` varchar(8000) DEFAULT NULL,
   `item` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`reviewID`),
@@ -215,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-29 20:55:49
+-- Dump completed on 2016-03-29 22:21:48
