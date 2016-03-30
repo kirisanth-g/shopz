@@ -19,8 +19,8 @@ public class Search {
 	
 	public static void search(String q){
 		con.sqlQuery(String.format("SELECT * FROM Item WHERE name like '%s%%' OR "
-				+ "Manufacturer LIKE %s%% OR Description LIKE %s%% OR"
-				+ "Category LIKE %s%%" , q, q, q, q));
+				+ "Manufacturer LIKE '%s%%' OR Description LIKE '%s%%' OR "
+				+ "Category LIKE '%s%%'" , q, q, q, q));
 		
 		try {
 			dbresults = con.getResult();
