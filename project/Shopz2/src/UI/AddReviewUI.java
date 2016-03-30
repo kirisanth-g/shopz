@@ -22,7 +22,6 @@ public class AddReviewUI extends Composite implements View {
 	private Label lblTitle, lblOfStars, lblDescription;
 	
 	//the item the review belongs to, called externally
-	private Item item; 
 
 	//private Review review;
 

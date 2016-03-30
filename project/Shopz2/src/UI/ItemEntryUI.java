@@ -50,6 +50,7 @@ public class ItemEntryUI extends Composite implements View {
 				btnViewReviews.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
+						Item.setItemSelected(item);
 						ViewController.switchView(ViewID.REVIEWS_LIST);
 					}
 				});
