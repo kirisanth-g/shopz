@@ -77,7 +77,7 @@ public class SearchUI extends Composite implements View {
 			}
 		});
 		
-		resetView();
+		//resetView();
 	}
 
 	@Override
