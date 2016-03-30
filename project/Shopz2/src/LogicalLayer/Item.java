@@ -29,23 +29,7 @@ public class Item {
 		this.categ = category;
 		this.price = price;
 		
-		reviews = new ArrayList<Review>();
-		
-		con = DBConnector.startup();
-		con.sqlQuery(String.format("SELECT * FROM Review WHERE item='%s'" , itemID));
-		try {
-			ResultSet dbresults = con.getResult();
-			while(dbresults.next()){
-				reviews.add(new Review(dbresults.getString("reviewID"),dbresults.getString("title"),
-						dbresults.getString("publishDate"), dbresults.getInt("stars"),
-						dbresults.getString("description"), dbresults.getString("item")));
-			}
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		this.pullReview();
 	}
 
 	public List<Review> getReviews(){
@@ -55,31 +39,23 @@ public class Item {
 	public void writeReview(String title, String pubDate, int stars,
 			String desc){
 		con = DBConnector.startup();
-		con.sqlQuery("SELECT count(*) FROM Review");
+		con.DDLStatement(String.format("INSERT INTO Review (title, stars, description, item) VALUES ('%s', %d, '%s', %d)", 
+				title, stars, desc, Integer.parseInt(this.itemID)));
+		this.pullReview();
 		try {
-			ResultSet result = con.getResult();
-			result.next();
-			String reviewID = String.valueOf(result.getInt("count(*)"));
-			reviews.add(new Review(reviewID, title, pubDate, stars, desc, this.itemID));
-			con.DDLStatement(String.format("INSERT INTO Review VALUES ('%s', '%s', '%s', %d, '%s', '%s')", 
-					reviewID, title, pubDate, stars, desc, this.itemID));
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void insertItem(String name, String manu, String desc, String category, float price){
 		con = DBConnector.startup();
-		try {
-			con.DDLStatement(String.format("INSERT INTO Item VALUES ('%s', '%s', '%s', '%s', %f)", 
-					name, manu, desc, category, price));
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		con.DDLStatement(String.format("INSERT INTO Item (name, manufacturer, description, category, price) VALUES ('%s', '%s', '%s', '%s', %.2f)", 
+				name, manu, desc, category, price));
 	}
 	
 	public String getItemID() {
@@ -149,5 +125,23 @@ public class Item {
 		itemSelected = item ;
 	}
 	
+	public void pullReview(){
+		reviews = new ArrayList<Review>();
+		
+		con = DBConnector.startup();
+		con.sqlQuery(String.format("SELECT * FROM Review WHERE item='%s'" , itemID));
+		try {
+			ResultSet dbresults = con.getResult();
+			while(dbresults.next()){
+				reviews.add(new Review(dbresults.getString("reviewID"),dbresults.getString("title"),
+						dbresults.getString("publishDate"), dbresults.getInt("stars"),
+						dbresults.getString("description"), dbresults.getString("item")));
+			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
