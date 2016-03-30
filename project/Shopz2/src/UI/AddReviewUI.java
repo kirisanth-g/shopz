@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
+import LogicalLayer.Item;
 import LogicalLayer.Review;
 
 import org.eclipse.swt.layout.GridData;
@@ -19,8 +20,11 @@ public class AddReviewUI extends Composite implements View {
 	private Text numStars;
 	private Button btnSaveChanges;
 	private Label lblTitle, lblOfStars, lblDescription;
+	
+	//the item the review belongs to, called externally
+	private Item item; 
 
-	private Review review;
+	//private Review review;
 
 	/**
 	 * Create the composite.
@@ -28,9 +32,8 @@ public class AddReviewUI extends Composite implements View {
 	 * @param parent
 	 * @param style
 	 */
-	public AddReviewUI(Composite parent, int style, Review review) {
+	public AddReviewUI(Composite parent, int style) {
 		super(parent, style);
-		this.review = review;
 		setLayout(new GridLayout(2, false));
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
@@ -82,11 +85,21 @@ public class AddReviewUI extends Composite implements View {
 	}
 
 	public void saveChanges(){
-		review.setDescription(descEntry.getText());
-		review.setTitle(titleEntry.getText()); 
+		Integer stars; 
+		String desc =  descEntry.getText();
+		String title = titleEntry.getText();
 		
-		if(reiv)
-		
+		try{
+			stars = Integer.parseInt(numStars.getText());
+		}
+		catch (NumberFormatException e){
+			System.out.println("cannot process stars, please retry");
+			return;
+		}
+		//creeate the new review object and save it to the cart
+		//save to the db
+		///maybe do the pub date internally
+		Item.getItemSelected().writeReview(title, "",stars, desc);
 		ViewController.prevView();
 	}
 	@Override

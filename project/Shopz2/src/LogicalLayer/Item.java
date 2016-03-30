@@ -18,6 +18,8 @@ public class Item {
 	private List<Review> reviews;
 	private DBConnector con;
 	
+	private static Item itemSelected; 
+	
 	
 	public Item(String itemID, String name, String manu, String desc, String category, float price){
 		this.itemID = itemID;
@@ -126,4 +128,14 @@ public class Item {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	
+	public static Item getItemSelected(){
+		return itemSelected;
+	}
+	
+	public static void setItemSelected(Item item ){
+		itemSelected = item ;
+	}
+	
+	
 }

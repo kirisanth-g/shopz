@@ -59,6 +59,8 @@ public class ItemEntryUI extends Composite implements View {
 				btnAddReview.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
+						//pass the item to addReview, so it knows where to edit
+						Item.setItemSelected(item);
 						ViewController.switchView(ViewController.ViewID.ADD_REVIEW);
 						
 					}
