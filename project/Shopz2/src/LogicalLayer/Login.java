@@ -11,7 +11,7 @@ public class Login {
 		return currentlyLoggedin; 
 	}
 	//DB connector
-	private static DBConnector con = new DBConnector("localhost", "3306", "root", "", "Shopz");
+	private static DBConnector con = DBConnector.con();
 	
 	public static boolean authenticate(String username, String password){
 		//if you want to hash, this is where to do it

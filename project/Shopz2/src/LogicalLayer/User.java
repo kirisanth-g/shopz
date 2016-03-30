@@ -30,14 +30,11 @@ public class User {
 	private Map<Item, Integer> cart = new HashMap<Item, Integer>();
 	
 	//DB connector
-	private DBConnector con;
+	private DBConnector con = DBConnector.con();
 	
 	
 	public User(String username){
-		
 		this.username = username;
-		//this needs to change
-		con = new DBConnector("localhost", "3306", "root", "", "Shopz");
 	}
 	
 	

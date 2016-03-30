@@ -97,4 +97,8 @@ public class DBConnector {
 	public Connection getConnection(){
 		return connection;
 	}
+	
+	public static DBConnector con(){
+		return con;
+	}
 }
