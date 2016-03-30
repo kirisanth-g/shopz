@@ -7,6 +7,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class AddReviewUI extends Composite implements View{
 	private Text titleEntry;
@@ -47,12 +49,21 @@ public class AddReviewUI extends Composite implements View{
 		descEntry.setLayoutData(gd_descEntry);
 		
 		btnSaveChanges = new Button(this, SWT.NONE);
+		btnSaveChanges.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				//save  all the fields to the db
+				ViewController.prevView();
+			}
+		});
 		
 		new Label(this, SWT.NONE);
+		resetView();
 
 	}
 	
 	public void resetView(){
+		System.out.println("does reset view get called");
 		btnSaveChanges.setText("Save Changes");
 		lblDescription.setText("Description");
 		lblOfStars.setText("# of stars");
