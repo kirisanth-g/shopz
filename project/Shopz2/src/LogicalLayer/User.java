@@ -107,7 +107,7 @@ public class User {
 	
 	public void store(){
 		//Store User info,
-		con.DDLStatement(String.format("UPDATE User SET name='%s' WHERE user='%s'", 
+		con.DDLStatement(String.format("UPDATE User SET name='%s' WHERE username='%s'", 
 				this.name, this.username));
 		
 		//Store Address Info
