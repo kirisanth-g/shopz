@@ -10,6 +10,8 @@ import LogicalLayer.Item;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class CartEntryUI extends Composite {
 	private Text numberOrdered;
@@ -47,6 +49,12 @@ public class CartEntryUI extends Composite {
 		quant.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		
 		btnRemove = new Button(this, SWT.NONE);
+		btnRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				//WRITE THE REMOVE BUTTON HERE 
+			}
+		});
 
 
 	}
