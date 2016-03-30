@@ -86,9 +86,9 @@ public class User {
 		}
 		
 		//get and store info from ShoppingCart
-		con.sqlQuery(String.format("SELECT * FROM (Item INNER JOIN "
-				+ "(SELECT * FROM ShoppingCart WHERE Username='%s')) ON "
-				+ "(ShoppingCart.item=Item.itemID)", this.username));
+		con.sqlQuery(String.format("SELECT * FROM Item INNER JOIN "
+				+ "(SELECT * FROM ShoppingCart WHERE Username='%s') AS T ON "
+				+ "(T.item=Item.itemID)", this.username));
 		try {
 			result = con.getResult();
 			while(result.next()){
