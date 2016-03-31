@@ -84,7 +84,8 @@ public class ReviewEntryUI extends Composite implements View  {
 	//you can only edit the body descroption
 	public void viewMode(){
 		//btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
-		btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
+	btneditAdmin.setEnabled(Login.getCurrentUser().isAdmin());
+		//btneditAdmin.setEnabled(false);
 		reviewBody.setEditable(false);
 		btnSaveChanges.setEnabled(false);
 	}

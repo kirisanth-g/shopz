@@ -67,7 +67,7 @@ public class Review {
 		this.setDescription(text);
 		con = DBConnector.startup();
 		con.DDLStatement(String.format("UPDATE Review SET description='%s' WHERE reviewID=%d", 
-				text, this.getItemID()));
+				text, Integer.parseInt(this.getItemID())));
 	}
 
 }
