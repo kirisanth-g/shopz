@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.11, for osx10.11 (x86_64)
 --
 -- Host: localhost    Database: Shopz
 -- ------------------------------------------------------
--- Server version	5.7.11-log
+-- Server version	5.7.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,7 +40,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES ('user1','Helen Zhou','123 road st','toronto','00','canada');
+INSERT INTO `address` VALUES ('user1','Alice','123 road st','toronto','00','canada');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `item` (
   `category` varchar(255) NOT NULL DEFAULT '',
   `price` float NOT NULL DEFAULT '-1',
   PRIMARY KEY (`itemID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +70,11 @@ LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
 INSERT INTO `item` VALUES (1,'iphone 6','apple','hype','phone',1000);
 INSERT INTO `item` VALUES (2,'nexus 6','nexus','motorolla','phone',600);
+INSERT INTO `item` VALUES (3,'itemName','Manufacturer','this is a watch. ','watch',2100.99);
+INSERT INTO `item` VALUES (4,'itemName','Manufacturer','its a car. needs new tires...','car',21000);
+INSERT INTO `item` VALUES (5,'optima','kia','its a car. needs new tires','car',21000);
+INSERT INTO `item` VALUES (6,'Macbook Pro','apple','A really expensive laptop. ','laptop',1500);
+INSERT INTO `item` VALUES (7,'XPS 13','Dell','Another Really expensive Laptop','laptop',1500);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +103,7 @@ CREATE TABLE `paymentinfo` (
 
 LOCK TABLES `paymentinfo` WRITE;
 /*!40000 ALTER TABLE `paymentinfo` DISABLE KEYS */;
-INSERT INTO `paymentinfo` VALUES ('user1','Helen Zhou',12345,'8/16',426,'VISA');
+INSERT INTO `paymentinfo` VALUES ('user1','Charlie',12345,'8/16',426,'VISA');
 /*!40000 ALTER TABLE `paymentinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +124,7 @@ CREATE TABLE `review` (
   PRIMARY KEY (`reviewID`),
   KEY `item` (`item`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`item`) REFERENCES `item` (`itemID`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,6 +133,9 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'hkjhkjhlkjhlk','2016-03-30 18:32:49',0,'lkjhlkjhlkjh',1);
+INSERT INTO `review` VALUES (2,'The Macbook Pro is a really good laptop','2016-03-30 20:13:28',3,'I really like this laptop',6);
+INSERT INTO `review` VALUES (3,'New review','2016-03-30 21:08:21',1,'this is a description ',1);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +161,7 @@ CREATE TABLE `shoppingcart` (
 
 LOCK TABLES `shoppingcart` WRITE;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
-INSERT INTO `shoppingcart` VALUES ('user1',2,3);
+INSERT INTO `shoppingcart` VALUES ('user1',6,1);
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,9 +187,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('','','','\0');
-INSERT INTO `user` VALUES ('user1','Helen Zhou','bam','');
-INSERT INTO `user` VALUES ('user2','cat','meow','');
+INSERT INTO `user` VALUES ('user1','Alice','bam','');
+INSERT INTO `user` VALUES ('user2','cat','meow','\0');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-30 16:55:38
+-- Dump completed on 2016-03-30 21:19:35

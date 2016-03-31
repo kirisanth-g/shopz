@@ -38,6 +38,7 @@ public class ReviewEntryUI extends Composite implements View  {
 				lblStarsOut = new Label(this, SWT.NONE);
 				
 						btneditAdmin = new Button(this, SWT.NONE);
+						btneditAdmin.setText("Edit");
 						btneditAdmin.setEnabled(false);
 						btneditAdmin.addSelectionListener(new SelectionAdapter() {
 							@Override
